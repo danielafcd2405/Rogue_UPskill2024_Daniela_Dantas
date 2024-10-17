@@ -30,7 +30,7 @@ public interface ImageTile {
 	String getName();
 
 	/**
-	 * Getter for the position (in grid coordinates) were the image should be placed.
+	 * Getter for the position (in grid coordinates) where the image should be placed.
 	 * 
 	 * @return A position.
 	 */

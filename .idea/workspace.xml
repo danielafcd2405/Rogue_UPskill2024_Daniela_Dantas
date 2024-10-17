@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f409e310-38d4-47a1-8bba-48a3a2b42e6f" name="Default Changelist" comment="" />
+    <list default="true" id="f409e310-38d4-47a1-8bba-48a3a2b42e6f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/DoorOpen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Skeleton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/ImageTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/ImageTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -25,26 +38,32 @@
   "associatedIndex": 5
 }]]></component>
   <component name="ProjectId" id="1jTu9goc6jnCfNu5DXWtIY76VLx" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Engine.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/danta/Documents/UpSkill/Projeto 1 Rogue/Rogue_UPskill2023_v1_Nome_Completo"
+    "last_opened_file_path": "C:/Users/danta/Documents/UpSkill/Projeto 1 Rogue/Exemplos/upskill-roguelike-master/upskill-roguelike-master"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="pt.upskill.projeto1.objects" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="pt.upskill.projeto1.game" />
       <recent name="pt.upskill.projeto1.gui" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Engine (1)">
+  <component name="RunManager" selected="Application.Engine">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -130,10 +149,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Engine" />
         <item itemvalue="Application.Engine (1)" />
         <item itemvalue="JUnit.DirectionTest" />
         <item itemvalue="JUnit.DirectionTest.testAsVector" />
-        <item itemvalue="Application.Engine" />
         <item itemvalue="JUnit.Vector2DTest" />
       </list>
     </recent_temporary>
