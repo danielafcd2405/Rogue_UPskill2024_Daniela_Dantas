@@ -5,6 +5,8 @@ import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.objects.Floor;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.Room;
+import pt.upskill.projeto1.objects.Wall;
+import pt.upskill.projeto1.rogue.utils.Direction;
 import pt.upskill.projeto1.rogue.utils.Position;
 
 import java.awt.event.KeyEvent;
@@ -31,7 +33,7 @@ public class Engine {
 
          */
 
-        hero = new Hero(new Position(4, 3));
+        hero = new Hero(new Position(4, 7));
         tiles.add(hero);
 
         gui.setEngine(this);
@@ -47,20 +49,16 @@ public class Engine {
 
     public void notify(int keyPressed){
         if (keyPressed == KeyEvent.VK_DOWN){
-            System.out.println("User pressed down key!");
-            hero.setPosition(new Position(hero.getPosition().getX() + 0, hero.getPosition().getY() + 1));
+            hero.move(Direction.DOWN.asVector());
         }
         if (keyPressed == KeyEvent.VK_UP){
-            System.out.println("User pressed up key!");
-            hero.setPosition(new Position(hero.getPosition().getX() + 0, hero.getPosition().getY() - 1));
+            hero.move(Direction.UP.asVector());
         }
         if (keyPressed == KeyEvent.VK_LEFT){
-            System.out.println("User pressed left key!");
-            hero.setPosition(new Position(hero.getPosition().getX() - 1, hero.getPosition().getY() + 0));
+            hero.move(Direction.LEFT.asVector());
         }
         if (keyPressed == KeyEvent.VK_RIGHT){
-            System.out.println("User pressed right key!");
-            hero.setPosition(new Position(hero.getPosition().getX() + 1, hero.getPosition().getY() + 0));
+            hero.move(Direction.RIGHT.asVector());
         }
     }
 

@@ -1,6 +1,7 @@
 package pt.upskill.projeto1.gui;
 
 import pt.upskill.projeto1.game.Engine;
+import pt.upskill.projeto1.objects.Hero;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -76,6 +77,10 @@ public class ImageMatrixGUI {
 		N_SQUARES_WIDTH = 10;
 		N_SQUARES_HEIGHT = 10;
 		init();
+	}
+
+	public List<ImageTile> getImages() {
+		return images;
 	}
 
 	/**
