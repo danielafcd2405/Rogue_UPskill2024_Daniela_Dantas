@@ -7,6 +7,7 @@ import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Hero implements ImageTile {
@@ -39,12 +40,26 @@ public class Hero implements ImageTile {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = gui.getImages();
 
+        // Lista dos tiles na novaPosição
+        // Pode existir mais do que 1, Floor e Skeleton, por exemplo
+        List<ImageTile> tilesInNovaPosicao = new ArrayList<>();
+
         for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(novaPosicao)
-                    && (tile instanceof Floor || tile instanceof DoorOpen)) {
-                this.setPosition(novaPosicao);
-                break;
+            if (tile.getPosition().equals(novaPosicao)) {
+                tilesInNovaPosicao.add(tile);
             }
+        }
+
+        // Verifica se algum desses tiles é um tile para onde não se pode mover
+        boolean podeMover = true;
+        for (ImageTile tile : tilesInNovaPosicao) {
+            if (tile instanceof Wall || tile instanceof Skeleton) {
+                podeMover = false;
+            }
+        }
+
+        if (podeMover) {
+            this.setPosition(novaPosicao);
         }
 
     }
