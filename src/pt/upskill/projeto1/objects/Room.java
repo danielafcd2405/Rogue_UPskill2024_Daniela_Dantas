@@ -1,5 +1,6 @@
 package pt.upskill.projeto1.objects;
 
+import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.rogue.utils.Position;
 
@@ -11,7 +12,9 @@ import java.util.Scanner;
 
 public class Room {
 
-    public List<ImageTile> readRoomMap(String room) {
+    public static List<ImageTile> readRoomMap(String room) {
+
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
 
         List<ImageTile> tiles = new ArrayList<>();
 
@@ -35,6 +38,10 @@ public class Room {
                             case "0":
                                 tiles.add(new DoorOpen(new Position(i, j)));
                                 break;
+                            case "S":
+                                tiles.add(new Floor(new Position(i, j)));
+                                tiles.add(new Skeleton(new Position(i, j)));
+                                break;
                             default:
                                 tiles.add(new Floor(new Position(i, j)));
                         }
@@ -45,9 +52,9 @@ public class Room {
         } catch (FileNotFoundException e) {
             System.out.println("Ficheiro não encontrado.");;
         }
+        //gui.newImages(tiles);
 
         return tiles;
-
     }
 
 }

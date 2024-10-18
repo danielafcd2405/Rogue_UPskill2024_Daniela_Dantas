@@ -40,9 +40,10 @@ public class Hero implements ImageTile {
         List<ImageTile> tiles = gui.getImages();
 
         for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(novaPosicao) && ! (tile instanceof Wall)) {
+            if (tile.getPosition().equals(novaPosicao)
+                    && (tile instanceof Floor || tile instanceof DoorOpen)) {
                 this.setPosition(novaPosicao);
-
+                break;
             }
         }
 
