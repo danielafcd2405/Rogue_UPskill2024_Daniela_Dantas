@@ -7,34 +7,14 @@ import pt.upskill.projeto1.rogue.utils.Vector2D;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
-public class Skeleton implements ImageTile {
+public abstract class MovingObject extends GameObject{
 
-    private Position position;
+    public abstract void move(Vector2D vector2D);
 
-    public Skeleton(Position position) {
-        this.position = position;
-    }
 
-    @Override
-    public String getName() {
-        return "Skeleton";
-    }
-
-    @Override
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public void move(Vector2D vector2D) {
-        Position novaPosicao = this.getPosition().plus(vector2D);
-
+    // Verifica se é possível mover para a nova posição
+    public boolean canMove(Position novaPosicao) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = gui.getImages();
 
@@ -51,14 +31,12 @@ public class Skeleton implements ImageTile {
         // Verifica se algum desses tiles é um tile para onde não se pode mover
         boolean podeMover = true;
         for (ImageTile tile : tilesInNovaPosicao) {
-            if (tile instanceof Wall || tile instanceof Skeleton || tile instanceof Hero || tile instanceof DoorOpen) {
+            if ( !((GameObject)tile).isTraversable(this) ) {
                 podeMover = false;
             }
         }
 
-        if (podeMover) {
-            this.setPosition(novaPosicao);
-        }
-
+        return podeMover;
     }
+
 }
