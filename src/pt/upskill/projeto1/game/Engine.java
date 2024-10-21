@@ -42,7 +42,7 @@ public class Engine {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = gui.getImages();
 
-        // Esta lista vai guardar o hero e todos os inimigos para depois aplicar o método move() a cada um dos objectos da lista
+        // Esta lista vai guardar o hero e todos os inimigos para depois aplicar o método move() a cada um dos objetos da lista
         List<MovingObject> movingObjects = new ArrayList<>();
         for (ImageTile tile : tiles) {
             if(tile instanceof MovingObject) {

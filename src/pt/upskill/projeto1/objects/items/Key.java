@@ -1,14 +1,15 @@
-package pt.upskill.projeto1.objects.stationary;
+package pt.upskill.projeto1.objects.items;
 
+import javafx.geometry.Pos;
 import pt.upskill.projeto1.objects.GameObject;
 import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
 
-public class Floor extends GameObject {
+public class Key extends GameObject {
 
     private final Position position;
 
-    public Floor(Position position) {
+    public Key(Position position) {
         this.position = position;
     }
 
@@ -19,7 +20,7 @@ public class Floor extends GameObject {
 
     @Override
     public String getName() {
-        return "Floor";
+        return "Key";
     }
 
     @Override

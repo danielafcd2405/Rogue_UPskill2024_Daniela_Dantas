@@ -18,25 +18,15 @@ public abstract class MovingObject extends GameObject{
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = gui.getImages();
 
-        // Lista dos tiles na novaPosição
-        // Pode existir mais do que 1, Floor e Skeleton, por exemplo
-        List<ImageTile> tilesInNovaPosicao = new ArrayList<>();
-
+        // Se algum dos tiles nessa posição for intransponível, retorna false
+        // Pode existir mais do que um tile na mesma posição: Floor e Wall
         for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(novaPosicao)) {
-                tilesInNovaPosicao.add(tile);
+            if (tile.getPosition().equals(novaPosicao) && !((MovingObject)tile).isTraversable(this)) {
+                return false;
             }
         }
 
-        // Verifica se algum desses tiles é um tile para onde não se pode mover
-        boolean podeMover = true;
-        for (ImageTile tile : tilesInNovaPosicao) {
-            if ( !((GameObject)tile).isTraversable(this) ) {
-                podeMover = false;
-            }
-        }
-
-        return podeMover;
+        return true;
     }
 
 }

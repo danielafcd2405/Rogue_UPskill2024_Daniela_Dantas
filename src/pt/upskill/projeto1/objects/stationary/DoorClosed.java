@@ -6,10 +6,15 @@ import pt.upskill.projeto1.rogue.utils.Position;
 
 public class DoorClosed extends GameObject {
 
-    private Position position;
+    private final Position position;
 
     public DoorClosed(Position position) {
         this.position = position;
+    }
+
+    @Override
+    public boolean isTraversable(MovingObject movingObject) {
+        return false;
     }
 
     @Override
@@ -20,10 +25,5 @@ public class DoorClosed extends GameObject {
     @Override
     public Position getPosition() {
         return position;
-    }
-
-    @Override
-    public boolean isTraversable(MovingObject movingObject) {
-        return false;
     }
 }

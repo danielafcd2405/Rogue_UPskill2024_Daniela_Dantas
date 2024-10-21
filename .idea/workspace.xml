@@ -5,28 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f409e310-38d4-47a1-8bba-48a3a2b42e6f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/rooms/room0Old.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rooms/room2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/GameObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/MovingObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/DoorClosed.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/enemies/Bat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/GoodMeat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Hammer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Key.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Grass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/DoorOpen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Floor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Room.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Skeleton.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Wall.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/room0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room0.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/room1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/GameObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/GameObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/stationary/DoorClosed.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/stationary/DoorClosed.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/stationary/DoorOpen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/stationary/DoorOpen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/stationary/Floor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/stationary/Floor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/stationary/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/stationary/Wall.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/DoorOpen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/DoorOpen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Floor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Floor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Skeleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/enemies/Skeleton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/GameObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/MovingObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/MovingObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/DoorClosed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/DoorClosed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/DoorOpen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/DoorOpen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Floor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Floor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Wall.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

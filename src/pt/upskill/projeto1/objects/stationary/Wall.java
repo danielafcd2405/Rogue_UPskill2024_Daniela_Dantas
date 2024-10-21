@@ -7,10 +7,15 @@ import pt.upskill.projeto1.rogue.utils.Position;
 
 public class Wall extends GameObject {
 
-    private Position position;
+    private final Position position;
 
     public Wall(Position position) {
         this.position = position;
+    }
+
+    @Override
+    public boolean isTraversable(MovingObject movingObject) {
+        return false;
     }
 
     @Override
@@ -21,10 +26,5 @@ public class Wall extends GameObject {
     @Override
     public Position getPosition() {
         return position;
-    }
-
-    @Override
-    public boolean isTraversable(MovingObject movingObject) {
-        return false;
     }
 }
