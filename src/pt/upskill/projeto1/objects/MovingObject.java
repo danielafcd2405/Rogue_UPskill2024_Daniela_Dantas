@@ -21,7 +21,7 @@ public abstract class MovingObject extends GameObject{
         // Se algum dos tiles nessa posição for intransponível, retorna false
         // Pode existir mais do que um tile na mesma posição: Floor e Wall
         for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(novaPosicao) && !((MovingObject)tile).isTraversable(this)) {
+            if (tile.getPosition().equals(novaPosicao) && !((GameObject) tile).isTraversable(this)) {
                 return false;
             }
         }

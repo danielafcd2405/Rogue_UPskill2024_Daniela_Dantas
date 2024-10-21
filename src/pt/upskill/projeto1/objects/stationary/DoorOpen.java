@@ -6,12 +6,15 @@ import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
 
-public class DoorOpen extends GameObject {
-    private final Position position;
+public class DoorOpen extends DoorWay {
 
-    public DoorOpen(Position position) {
-        this.position = position;
+    public DoorOpen(Position position, int doorNumber, String nextRoom, int nextDoor, String key) {
+        super(position, doorNumber);
+        this.nextRoom = nextRoom;
+        this.nextDoor = nextDoor;
+        this.key = key;
     }
+
 
     @Override
     public boolean isTraversable(MovingObject movingObject) {
@@ -26,8 +29,4 @@ public class DoorOpen extends GameObject {
         return "DoorOpen";
     }
 
-    @Override
-    public Position getPosition() {
-        return position;
-    }
 }

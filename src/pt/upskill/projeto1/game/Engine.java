@@ -4,7 +4,9 @@ import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.objects.*;
 import pt.upskill.projeto1.objects.enemies.Skeleton;
+import pt.upskill.projeto1.objects.stationary.DoorWay;
 import pt.upskill.projeto1.rogue.utils.Direction;
+import pt.upskill.projeto1.rogue.utils.Position;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -13,19 +15,15 @@ import java.util.List;
 public class Engine {
 
     // Para ter o hero acessível para o método notify
-    private Hero hero;
+    //private Hero hero;
 
     public void init(){
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
 
-        Room room = new Room();
-        List<ImageTile> tiles = room.readRoomMap("room0.txt");
+        List<ImageTile> tiles = Room.readRoomMap("room0.txt");
 
-        for (ImageTile tile : tiles) {
-            if (tile instanceof Hero) {
-                hero = (Hero) tile;
-            }
-        }
+        Hero hero = new Hero(new Position(3, 6));
+        tiles.add(hero);
 
         gui.setEngine(this);
         gui.newImages(tiles);
