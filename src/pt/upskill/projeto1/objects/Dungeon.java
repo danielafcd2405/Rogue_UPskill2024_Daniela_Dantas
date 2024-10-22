@@ -15,7 +15,49 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class Room {
+public class Dungeon {
+
+    // Guarda todas as salas de acordo com o nome do ficheiro de configuração da sala correspondente
+    private static final Map<String, List<ImageTile>> dungeonMap = buildDungeon();
+    private static String currentRoom;
+
+    public static Map<String, List<ImageTile>> getDungeonMap() {
+        return dungeonMap;
+    }
+
+    public static String getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public static void setCurrentRoom(String currentRoom) {
+        Dungeon.currentRoom = currentRoom;
+    }
+
+    // Lê todos os ficheiros da pasta rooms e para cada ficheiro, guarda uma lista de ImageTiles da sala
+    // no mapa dungeonMap
+    public static Map<String, List<ImageTile>> buildDungeon() {
+        Map<String, List<ImageTile>> dungeonMap = new HashMap<>();
+
+        File[] files = null;
+        try {
+            File f = new File("rooms");
+            // Listar todos os nomes dos ficheiros na pasta rooms
+            files = f.listFiles();
+        }
+        catch (Exception e) {
+            System.out.println("Erro ao ler ficheiros");
+        }
+
+        for (File file : files) {
+            System.out.println(file.getName());
+            dungeonMap.put(file.getName(), readRoomMap(file.getName()));
+        }
+
+        return dungeonMap;
+
+    }
+
+
 
     public static List<ImageTile> readRoomMap(String room) {
 
@@ -101,7 +143,7 @@ public class Room {
     private static void addRoomConnections(List<ImageTile> tiles, List<String> definicoes) {
 
         // Extrair os tiles do tipo DoorWay e guardar num HashMap
-        Map<Integer, DoorWay> doorsMap = new HashMap<>();
+        java.util.Map<Integer, DoorWay> doorsMap = new HashMap<>();
         for (ImageTile tile : tiles) {
             if (tile instanceof DoorWay) {
                 doorsMap.put(((DoorWay) tile).getDoorNumber(), (DoorWay) tile);
@@ -137,20 +179,20 @@ public class Room {
     }
 
 
-    public static void buildNewRoom(Position position) {
+    public static void changeRoom(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = gui.getImages();
 
         String nextRoom = "";
-
         Hero hero = new Hero(new Position(0, 0));
-
         int nextDoor = 0;
+        // Extrai a informação de configuração da porta por onde passou
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(position) && tile instanceof DoorWay) {
                 nextRoom = ((DoorWay) tile).getNextRoom();
                 nextDoor = ((DoorWay) tile).getNextDoor();
             }
+            // Guarda o hero
             if (tile instanceof Hero) {
                 hero = (Hero) tile;
             }
@@ -158,7 +200,8 @@ public class Room {
 
         // Limpa a sala antiga
         gui.clearImages();
-        List<ImageTile> newTiles = readRoomMap(nextRoom);
+        List<ImageTile> newTiles = dungeonMap.get(nextRoom);
+        setCurrentRoom(nextRoom);
 
         // Vai buscar a posição da porta por onde o hero entrou
         Position newHeroPosition = null;
