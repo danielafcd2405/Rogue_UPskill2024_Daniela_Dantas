@@ -6,15 +6,14 @@ import pt.upskill.projeto1.rogue.utils.Position;
 
 public class DoorWay extends GameObject {
 
-    private final Position position;
-    private final int doorNumber;
+    protected final int doorNumber;
     protected String nextRoom;
     protected int nextDoor;
     protected String key;
 
 
     public DoorWay(Position position, int doorNumber) {
-        this.position = position;
+        super(position);
         this.doorNumber = doorNumber;
     }
 
@@ -44,8 +43,4 @@ public class DoorWay extends GameObject {
         return "DoorWay";
     }
 
-    @Override
-    public Position getPosition() {
-        return position;
-    }
 }

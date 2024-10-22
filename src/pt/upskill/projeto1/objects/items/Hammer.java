@@ -6,10 +6,8 @@ import pt.upskill.projeto1.rogue.utils.Position;
 
 public class Hammer extends GameObject {
 
-    private final Position position;
-
     public Hammer(Position position) {
-        this.position = position;
+        super(position);
     }
 
     @Override
@@ -22,8 +20,4 @@ public class Hammer extends GameObject {
         return "Hammer";
     }
 
-    @Override
-    public Position getPosition() {
-        return position;
-    }
 }

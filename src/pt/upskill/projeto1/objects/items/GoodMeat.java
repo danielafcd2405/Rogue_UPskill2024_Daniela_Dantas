@@ -5,10 +5,9 @@ import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
 
 public class GoodMeat extends GameObject {
-    private final Position position;
 
     public GoodMeat(Position position) {
-        this.position = position;
+        super(position);
     }
 
     @Override
@@ -21,8 +20,4 @@ public class GoodMeat extends GameObject {
         return "GoodMeat";
     }
 
-    @Override
-    public Position getPosition() {
-        return position;
-    }
 }

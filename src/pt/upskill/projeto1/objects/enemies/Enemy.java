@@ -2,7 +2,7 @@ package pt.upskill.projeto1.objects.enemies;
 
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
-import pt.upskill.projeto1.objects.Dungeon;
+import pt.upskill.projeto1.game.Dungeon;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
@@ -11,24 +11,13 @@ import java.util.List;
 
 public abstract class Enemy extends MovingObject {
 
-    protected Position position;
     protected int maxHP;
     protected int currentHP;
     protected int atk;
     protected int expPoints;
 
     public Enemy(Position position) {
-        this.position = position;
-    }
-
-    @Override
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-        System.out.println(getName() + " moved to " + position);
+        super(position);
     }
 
     public int getMaxHP() {

@@ -7,10 +7,8 @@ import pt.upskill.projeto1.rogue.utils.Position;
 
 public class Wall extends GameObject {
 
-    private final Position position;
-
     public Wall(Position position) {
-        this.position = position;
+        super(position);
     }
 
     @Override
@@ -23,8 +21,4 @@ public class Wall extends GameObject {
         return "Wall";
     }
 
-    @Override
-    public Position getPosition() {
-        return position;
-    }
 }

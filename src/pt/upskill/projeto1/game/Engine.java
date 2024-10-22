@@ -4,7 +4,6 @@ import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.objects.*;
 import pt.upskill.projeto1.objects.enemies.Enemy;
-import pt.upskill.projeto1.objects.status.StatusBar;
 import pt.upskill.projeto1.rogue.utils.Direction;
 import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
@@ -15,9 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Engine {
-
-    // Para ter o hero acessível para o método notify
-    //private Hero hero;
 
     public void init(){
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
@@ -72,7 +68,7 @@ public class Engine {
             vector2D = Direction.RIGHT.asVector();
         }
 
-        if (vector2D != null) {
+        if (vector2D != null && hero != null) {
             // O hero move primeiro
             hero.move(vector2D);
             // Só depois movem os enimigos

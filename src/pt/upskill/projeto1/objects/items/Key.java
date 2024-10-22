@@ -7,10 +7,8 @@ import pt.upskill.projeto1.rogue.utils.Position;
 
 public class Key extends GameObject {
 
-    private final Position position;
-
     public Key(Position position) {
-        this.position = position;
+        super(position);
     }
 
     @Override
@@ -23,8 +21,4 @@ public class Key extends GameObject {
         return "Key";
     }
 
-    @Override
-    public Position getPosition() {
-        return position;
-    }
 }

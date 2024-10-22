@@ -1,20 +1,23 @@
 package pt.upskill.projeto1.objects;
 
-import pt.upskill.projeto1.gui.ImageMatrixGUI;
+import pt.upskill.projeto1.game.Dungeon;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MovingObject extends GameObject{
+
+    public MovingObject(Position position) {
+        super(position);
+    }
 
     public abstract void move(Vector2D vector2D);
 
 
     // Verifica se é possível mover para a nova posição
-    public boolean canMove(Position novaPosicao) {
+    protected boolean canMove(Position novaPosicao) {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
         // Se algum dos tiles nessa posição for intransponível, retorna false

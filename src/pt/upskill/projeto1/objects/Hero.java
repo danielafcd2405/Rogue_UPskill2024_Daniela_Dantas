@@ -1,5 +1,6 @@
 package pt.upskill.projeto1.objects;
 
+import pt.upskill.projeto1.game.Dungeon;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.objects.enemies.Enemy;
@@ -10,7 +11,6 @@ import java.util.List;
 
 public class Hero extends MovingObject {
 
-    private Position position;
     private int points = 50;
     private final int maxHP = 80;
     private int currentHP;
@@ -18,7 +18,7 @@ public class Hero extends MovingObject {
     private int totalATK; // Calculado com base no baseATK + bonus de armas
 
     public Hero(Position position) {
-        this.position = position;
+        super(position);
         this.currentHP = maxHP;
         this.totalATK = baseATK;
     }
@@ -63,16 +63,6 @@ public class Hero extends MovingObject {
     @Override
     public String getName() {
         return "Hero";
-    }
-
-    @Override
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-        System.out.println("Hero moved to " + getPosition());
     }
 
     @Override

@@ -1,6 +1,8 @@
-package pt.upskill.projeto1.objects.status;
+package pt.upskill.projeto1.game;
 
 import pt.upskill.projeto1.gui.ImageTile;
+import pt.upskill.projeto1.objects.status.Black;
+import pt.upskill.projeto1.objects.status.Green;
 import pt.upskill.projeto1.rogue.utils.Position;
 
 import java.util.ArrayList;

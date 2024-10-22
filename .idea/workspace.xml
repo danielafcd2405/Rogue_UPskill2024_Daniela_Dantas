@@ -8,12 +8,20 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/items/GoodMeat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/items/GoodMeat.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/ImageMatrixGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/ImageMatrixGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Dungeon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Dungeon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/MovingObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/MovingObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/enemies/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/enemies/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/GoodMeat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/GoodMeat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Hammer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Hammer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Key.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/DoorWay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/DoorWay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Floor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Floor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/status/StatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/StatusBar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
