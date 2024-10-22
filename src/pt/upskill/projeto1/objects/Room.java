@@ -2,6 +2,7 @@ package pt.upskill.projeto1.objects;
 
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
+import pt.upskill.projeto1.objects.enemies.BadGuy;
 import pt.upskill.projeto1.objects.enemies.Bat;
 import pt.upskill.projeto1.objects.enemies.Skeleton;
 import pt.upskill.projeto1.objects.items.GoodMeat;
@@ -74,7 +75,7 @@ public class Room {
                         tiles.add(new Bat(new Position(i, j)));
                         break;
                     case "G":
-                        tiles.add(new Grass(new Position(i, j)));
+                        tiles.add(new BadGuy(new Position(i, j)));
                         break;
                     case "k":
                         tiles.add(new Key(new Position(i, j)));
@@ -174,17 +175,6 @@ public class Room {
 
         newTiles.add(hero);
         gui.newImages(newTiles);
-
-        for (ImageTile tile : tiles) {
-            System.out.println(tile.getName());
-            if (tile instanceof DoorWay) {
-                System.out.print(((DoorWay) tile).getDoorNumber());
-                System.out.print(" ");
-                System.out.print(((DoorWay) tile).getNextRoom());
-                System.out.print(" ");
-                System.out.println(((DoorWay) tile).getNextDoor());
-            }
-        }
 
     }
 

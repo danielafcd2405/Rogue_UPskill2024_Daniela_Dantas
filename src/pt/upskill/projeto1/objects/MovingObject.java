@@ -29,4 +29,5 @@ public abstract class MovingObject extends GameObject{
         return true;
     }
 
+
 }

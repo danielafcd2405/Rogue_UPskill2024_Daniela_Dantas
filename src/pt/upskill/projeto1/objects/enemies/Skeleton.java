@@ -4,12 +4,13 @@ import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
 
-public class Skeleton extends MovingObject {
-
-    private Position position;
+public class Skeleton extends Enemy {
 
     public Skeleton(Position position) {
-        this.position = position;
+        super(position);
+        currentHP = maxHP = 20;
+        atk = 10;
+        expPoints = 10;
     }
 
     @Override
@@ -17,14 +18,6 @@ public class Skeleton extends MovingObject {
         return "Skeleton";
     }
 
-    @Override
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
 
     @Override
     public void move(Vector2D vector2D) {
@@ -32,6 +25,9 @@ public class Skeleton extends MovingObject {
 
         if (canMove(novaPosicao)) {
             this.setPosition(novaPosicao);
+        } else if (isHero(novaPosicao)) {
+            System.out.println("Skeleton atacou");
+            attackHero(novaPosicao);
         }
 
     }

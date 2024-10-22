@@ -1,9 +1,7 @@
 package pt.upskill.projeto1.objects.items;
 
-import javafx.geometry.Pos;
 import pt.upskill.projeto1.objects.GameObject;
 import pt.upskill.projeto1.objects.MovingObject;
-import pt.upskill.projeto1.objects.stationary.Grass;
 import pt.upskill.projeto1.rogue.utils.Position;
 
 public class GoodMeat extends GameObject {

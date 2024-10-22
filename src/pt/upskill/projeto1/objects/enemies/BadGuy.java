@@ -1,17 +1,18 @@
 package pt.upskill.projeto1.objects.enemies;
 
-import javafx.geometry.Pos;
 import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
 
-public class Bat extends Enemy {
+public class BadGuy extends Enemy {
 
-    public Bat(Position position) {
+    private Position position;
+
+    public BadGuy(Position position) {
         super(position);
-        currentHP = maxHP = 15;
-        atk = 5;
-        expPoints = 5;
+        currentHP = maxHP = 30;
+        atk = 20;
+        expPoints = 20;
     }
 
     @Override
@@ -21,7 +22,7 @@ public class Bat extends Enemy {
         if (canMove(novaPosicao)) {
             this.setPosition(novaPosicao);
         } else if (isHero(novaPosicao)) {
-            System.out.println("Bat atacou");
+            System.out.println("BadGuy atacou");
             attackHero(novaPosicao);
         }
     }
@@ -33,7 +34,7 @@ public class Bat extends Enemy {
 
     @Override
     public String getName() {
-        return "Bat";
+        return "BadGuy";
     }
 
 }

@@ -3,10 +3,13 @@ package pt.upskill.projeto1.game;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.objects.*;
+import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.enemies.Skeleton;
 import pt.upskill.projeto1.objects.stationary.DoorWay;
+import pt.upskill.projeto1.objects.status.StatusBar;
 import pt.upskill.projeto1.rogue.utils.Direction;
 import pt.upskill.projeto1.rogue.utils.Position;
+import pt.upskill.projeto1.rogue.utils.Vector2D;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -27,6 +30,10 @@ public class Engine {
 
         gui.setEngine(this);
         gui.newImages(tiles);
+
+        List<ImageTile> statusBarTiles = StatusBar.buildStatusBar();
+        gui.newStatusImages(statusBarTiles);
+
         gui.go();
 
         gui.setStatus("O jogo começou!");
@@ -40,35 +47,40 @@ public class Engine {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = gui.getImages();
 
-        // Esta lista vai guardar o hero e todos os inimigos para depois aplicar o método move() a cada um dos objetos da lista
-        List<MovingObject> movingObjects = new ArrayList<>();
+        Hero hero = null;
+
+        // Esta lista vai guardar todos os inimigos para depois aplicar o método move() a cada um dos objetos da lista
+        List<Enemy> enemies = new ArrayList<>();
         for (ImageTile tile : tiles) {
-            if(tile instanceof MovingObject) {
-                movingObjects.add((MovingObject) tile);
+            if(tile instanceof Enemy) {
+                enemies.add((Enemy) tile);
+            } else if (tile instanceof Hero) {
+                hero = (Hero) tile;
             }
         }
 
+        Vector2D vector2D = null;
         if (keyPressed == KeyEvent.VK_DOWN){
-            for (MovingObject movingObject : movingObjects) {
-                movingObject.move(Direction.DOWN.asVector());
-            }
+            vector2D = Direction.DOWN.asVector();
         }
         if (keyPressed == KeyEvent.VK_UP){
-            for (MovingObject movingObject : movingObjects) {
-                movingObject.move(Direction.UP.asVector());
-            }
+            vector2D = Direction.UP.asVector();
         }
         if (keyPressed == KeyEvent.VK_LEFT){
-            for (MovingObject movingObject : movingObjects) {
-                movingObject.move(Direction.LEFT.asVector());
-            }
+            vector2D = Direction.LEFT.asVector();
         }
         if (keyPressed == KeyEvent.VK_RIGHT){
-            for (MovingObject movingObject : movingObjects) {
-                movingObject.move(Direction.RIGHT.asVector());
-            }
+            vector2D = Direction.RIGHT.asVector();
         }
 
+        if (vector2D != null) {
+            // O hero move primeiro
+            hero.move(vector2D);
+            // Só depois movem os enimigos
+            for (Enemy enemy : enemies) {
+                enemy.move(vector2D);
+            }
+        }
 
     }
 
