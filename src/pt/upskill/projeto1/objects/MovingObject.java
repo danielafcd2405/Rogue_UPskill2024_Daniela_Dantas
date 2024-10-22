@@ -15,8 +15,7 @@ public abstract class MovingObject extends GameObject{
 
     // Verifica se é possível mover para a nova posição
     public boolean canMove(Position novaPosicao) {
-        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        List<ImageTile> tiles = gui.getImages();
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
         // Se algum dos tiles nessa posição for intransponível, retorna false
         // Pode existir mais do que um tile na mesma posição: Floor e Wall

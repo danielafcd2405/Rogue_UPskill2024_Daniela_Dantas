@@ -181,7 +181,7 @@ public class Dungeon {
 
     public static void changeRoom(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        List<ImageTile> tiles = gui.getImages();
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
         String nextRoom = "";
         Hero hero = new Hero(new Position(0, 0));

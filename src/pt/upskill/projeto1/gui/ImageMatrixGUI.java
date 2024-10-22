@@ -79,10 +79,6 @@ public class ImageMatrixGUI {
 		init();
 	}
 
-	public List<ImageTile> getImages() {
-		return images;
-	}
-
 	/**
 	 * @return Access to the Singleton instance of ImageMatrixGUI
 	 */

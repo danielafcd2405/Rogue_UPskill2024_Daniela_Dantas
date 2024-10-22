@@ -45,9 +45,7 @@ public class Engine {
     }
 
     public void notify(int keyPressed){
-        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        List<ImageTile> tiles = gui.getImages();
-
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
         Hero hero = null;
 
         // Esta lista vai guardar todos os inimigos para depois aplicar o método move() a cada um dos objetos da lista

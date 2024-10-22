@@ -96,8 +96,7 @@ public class Hero extends MovingObject {
     }
 
     private boolean isEnemy(Position position) {
-        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        List<ImageTile> tiles = gui.getImages();
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(position) && tile instanceof Enemy) {
@@ -109,7 +108,7 @@ public class Hero extends MovingObject {
 
     private void attackEnemy(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        List<ImageTile> tiles = gui.getImages();
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(position) && tile instanceof Enemy) {
@@ -119,6 +118,11 @@ public class Hero extends MovingObject {
                 if (((Enemy) tile).getCurrentHP() <= 0) {
                     this.setPoints(((Enemy) tile).getExpPoints());
                     tiles.remove(tile);
+                    // Tenho que remover do dungeonMap e dos tiles que estão na gui
+                    // Se remover só do dungeonMap, o inimigo fica visível após ser removido
+                    // É impossível interagir com ele e após sair e voltar entrar na sala ele desaparece de vez
+                    // Removendo da gui também, ele dasaparece logo após ser derrotado
+                    gui.removeImage(tile);
                     System.out.println("Inimigo derrotado");
                     break;
                 }

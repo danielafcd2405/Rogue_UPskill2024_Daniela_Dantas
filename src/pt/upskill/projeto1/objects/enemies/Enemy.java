@@ -2,6 +2,7 @@ package pt.upskill.projeto1.objects.enemies;
 
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
+import pt.upskill.projeto1.objects.Dungeon;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
@@ -56,8 +57,7 @@ public abstract class Enemy extends MovingObject {
 
 
     protected boolean isHero(Position position) {
-        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        List<ImageTile> tiles = gui.getImages();
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(position) && tile instanceof Hero) {
@@ -70,7 +70,7 @@ public abstract class Enemy extends MovingObject {
 
     protected void attackHero(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        List<ImageTile> tiles = gui.getImages();
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(position) && tile instanceof Hero) {
