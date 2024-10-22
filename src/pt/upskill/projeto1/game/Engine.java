@@ -28,7 +28,7 @@ public class Engine {
         gui.setEngine(this);
         gui.newImages(tiles);
 
-        List<ImageTile> statusBarTiles = StatusBar.buildStatusBar();
+        List<ImageTile> statusBarTiles = StatusBar.getStatusBarTiles();
         gui.newStatusImages(statusBarTiles);
 
         gui.go();
