@@ -5,23 +5,12 @@ import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
 
-public class GoodMeat extends Item {
+public class GoodMeat extends Consumable {
 
     public GoodMeat(Position position) {
         super(position);
-    }
-
-    @Override
-    protected boolean isPickable(MovingObject movingObject) {
-        return false;
-    }
-
-    @Override
-    protected boolean isConsumable(MovingObject movingObject) {
-        if (movingObject instanceof Hero) {
-            return true;
-        }
-        return false;
+        expPoints = 5;
+        restoreHP = 20;
     }
 
     @Override

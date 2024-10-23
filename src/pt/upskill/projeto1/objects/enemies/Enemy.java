@@ -1,6 +1,7 @@
 package pt.upskill.projeto1.objects.enemies;
 
 import javafx.geometry.Pos;
+import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.game.Dungeon;
@@ -199,10 +200,13 @@ public abstract class Enemy extends MovingObject {
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(position) && tile instanceof Hero) {
                 ((Hero) tile).setCurrentHP(((Hero) tile).getCurrentHP() - this.getAtk());
+                ((Hero) tile).setPoints(-5);
+                Engine.mensagensStatus += "Ouch! - 5 pontos | ";
                 System.out.println("Hero recebeu dano. currentHP: " + ((Hero) tile).getCurrentHP());
                 // Se o HP ficar a 0, Game Over
                 if (((Hero) tile).getCurrentHP() <= 0) {
-                    gui.clearImages();
+                    //gui.clearImages();
+
                     System.out.println("GAME OVER");
                     break;
                 }

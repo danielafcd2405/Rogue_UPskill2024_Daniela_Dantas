@@ -15,6 +15,8 @@ import java.util.Map;
 
 public class Engine {
 
+    public static String mensagensStatus = "";
+
     public void init(){
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
 
@@ -44,13 +46,10 @@ public class Engine {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
         Hero hero = null;
 
-        // Esta lista vai guardar todos os inimigos para depois aplicar o método move() a cada um dos objetos da lista
-        List<Enemy> enemies = new ArrayList<>();
         for (ImageTile tile : tiles) {
-            if(tile instanceof Enemy) {
-                enemies.add((Enemy) tile);
-            } else if (tile instanceof Hero) {
+            if (tile instanceof Hero) {
                 hero = (Hero) tile;
+                break;
             }
         }
 
@@ -71,11 +70,28 @@ public class Engine {
         if (vector2D != null && hero != null) {
             // O hero move primeiro
             hero.move(vector2D);
+
+
             // Só depois movem os enimigos
+
+            // Esta lista vai guardar todos os inimigos para depois aplicar o método move() a cada um dos objetos da lista
+            List<Enemy> enemies = new ArrayList<>();
+            for (ImageTile tile : tiles) {
+                if(tile instanceof Enemy) {
+                    enemies.add((Enemy) tile);
+                } else if (tile instanceof Hero) {
+                    hero = (Hero) tile;
+                }
+            }
+
             for (Enemy enemy : enemies) {
                 enemy.moveEnemy();
             }
         }
+
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+        gui.setStatus(mensagensStatus);
+        mensagensStatus = "";
 
     }
 

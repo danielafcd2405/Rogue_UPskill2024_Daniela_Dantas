@@ -1,6 +1,7 @@
 package pt.upskill.projeto1.objects;
 
 import pt.upskill.projeto1.game.Dungeon;
+import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.game.StatusBar;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
@@ -33,9 +34,7 @@ public class Hero extends MovingObject {
         if (this.points < 0) {
             this.points = 0;
         }
-        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        gui.setStatus("Pontuação: " + getPoints());
-        System.out.println("Points: " + getPoints() + " (" + points + ")");
+        System.out.println("Points: " + getPoints() + " (" + points + ") | ");
     }
 
     public int getBaseATK() {
@@ -60,6 +59,9 @@ public class Hero extends MovingObject {
 
     public void setCurrentHP(int currentHP) {
         this.currentHP = currentHP;
+        if (currentHP > maxHP) {
+            this.currentHP = maxHP;
+        }
         // chamar método para alterar a Status Bar
         StatusBar.updateStatusBar(this.maxHP, this.currentHP);
     }
@@ -81,15 +83,32 @@ public class Hero extends MovingObject {
         if (canMove(novaPosicao)) {
             this.setPosition(novaPosicao);
             this.setPoints(-1); // cada movimento remove 1 ponto
+            Engine.mensagensStatus += "Pontuação: " + getPoints() + " | ";
         } else if (isEnemy(novaPosicao)) {
             System.out.println("Hero atacou");
-            ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-            gui.setStatus("Ataque!!");
+            Engine.mensagensStatus += "Ataque!! | ";
             attackEnemy(novaPosicao);
         } else {
-            ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-            gui.setStatus("Ouch! Esta parede é sólida.");
+            Engine.mensagensStatus += "Ouch! Esta parede é sólida. | ";
         }
+
+    }
+
+    private boolean canConsume(Position position) {
+
+        return false;
+    }
+
+    private void consumeItem(Position position) {
+
+    }
+
+    private boolean canPickUp(Position position) {
+
+        return false;
+    }
+
+    private void pickUpItem(Position position) {
 
     }
 
@@ -122,8 +141,8 @@ public class Hero extends MovingObject {
                     // Removendo da gui também, ele dasaparece logo após ser derrotado
                     gui.removeImage(tile);
                     System.out.println("Inimigo derrotado");
-                    gui.setStatus("Inimigo derrotado!");
-                    break;
+                    Engine.mensagensStatus += "Inimigo derrotado! + " + ((Enemy) tile).getExpPoints() + " pontos | ";
+                    return;
                 }
             }
         }
