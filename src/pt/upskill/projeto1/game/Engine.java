@@ -73,7 +73,7 @@ public class Engine {
             hero.move(vector2D);
             // Só depois movem os enimigos
             for (Enemy enemy : enemies) {
-                enemy.move(vector2D);
+                enemy.moveEnemy();
             }
         }
 
