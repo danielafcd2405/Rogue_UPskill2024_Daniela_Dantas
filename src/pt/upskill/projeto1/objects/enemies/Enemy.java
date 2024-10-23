@@ -19,7 +19,7 @@ public abstract class Enemy extends MovingObject {
     protected int currentHP;
     protected int atk;
     protected int expPoints;
-    private final Vector2D[] movimentosPossiveis = {
+    protected Vector2D[] movimentosPossiveis = {
             new Vector2D(1, 0),
             new Vector2D(-1, 0),
             new Vector2D(0, 1),
@@ -46,83 +46,97 @@ public abstract class Enemy extends MovingObject {
         return atk;
     }
 
-    public void setAtk(int atk) {
-        this.atk = atk;
-    }
-
     public int getExpPoints() {
         return expPoints;
     }
 
 
-    public void moveEnemy() {
-
+    private List<Position> posicoesPossiveis() {
         List<Position> posicoesPossiveis = new ArrayList<>();
-        int numPosicoesPossiveis = 0;
-
-        if (isCloseToHero()) {
-            // Obter uma lista das posições em que os movimentos possíveis do inimigo se sobrepôem ao heroRange
-            List<Position> posicoesConvergentes = new ArrayList<>();
-            List<Position> heroRange = getHeroRange();
-            for (Vector2D vector2D : movimentosPossiveis) {
-                for (Position positionHero : heroRange) {
-                    if (this.getPosition().plus(vector2D).equals(positionHero)) {
-                        posicoesConvergentes.add(this.getPosition().plus(vector2D));
-                    }
-                }
-            }
-
-            // Podem existir 1, 2 ou 3 posições na lista posicoesConvergentes
-            // Se alguma das posições corresponder ao hero, ataca e não realiza movimento
-            // o ataque conta como uma jogada
-            for (Position p : posicoesConvergentes) {
-                numPosicoesPossiveis++;
-                if (isHero(p)) {
-                    attackHero(p);
-                    System.out.println("Enemy attacked!");
-                    return;
-                }
-            }
-
-            posicoesPossiveis = posicoesConvergentes;
-
-        } else {
-            for (Vector2D vector2D : movimentosPossiveis) {
-                posicoesPossiveis.add(this.getPosition().plus(vector2D));
-                numPosicoesPossiveis++;
+        for (Vector2D vector2D : this.movimentosPossiveis) {
+            Position position = this.getPosition().plus(vector2D);
+            if (canMove(position) || isHero(position)) {
+                posicoesPossiveis.add(position);
             }
         }
+        return posicoesPossiveis;
+    }
 
+    public void moveEnemy() {
+
+        if (isCloseToHero()) {
+            movimentoConvergente();
+        } else {
+            movimentoAleatorio(posicoesPossiveis());
+        }
+
+    }
+
+    public void movimentoAleatorio(List<Position> posicoesPossiveis) {
         // Movimento aleatório
-
-        // Gerar um número aleatório entre 0 e o numPosicoesPossiveis (índices da lista posicoesPossiveis)
+        // Gerar um número aleatório entre 0 e o tamanho da lista de posicoes possiveis
         Random random = new Random();
         int randomIndex;
         Position novaPosicao;
 
         // Vai gerar uma nova posição até ter uma posição válida, assim o inimigo nunca fica parado
         do {
-            randomIndex = random.nextInt(numPosicoesPossiveis);
+            randomIndex = random.nextInt(posicoesPossiveis.size());
             novaPosicao = posicoesPossiveis.get(randomIndex);
         } while (!canMove(novaPosicao));
 
         this.setPosition(novaPosicao);
-        System.out.println("New enemy position: " + novaPosicao);
+        System.out.println("Enemy moved: " + novaPosicao);
+    }
 
+
+    public void movimentoConvergente() {
+        List<Position> posicoesPossiveisEnemy = posicoesPossiveis();
+        List<Position> heroRange = getHeroRange();
+        // Lista para guardar as posições que se sobrepõe entre a posicoesPossiveisEnemy e heroRange
+        List<Position> posicoesConvergentes = new ArrayList<>();
+        for (Position enemyPosition : posicoesPossiveisEnemy) {
+            for (Position heroPosition : heroRange) {
+                if (enemyPosition.equals(heroPosition)) {
+                    posicoesConvergentes.add(enemyPosition);
+                }
+            }
+        }
+
+        if (! posicoesConvergentes.isEmpty()) {
+
+            for (Position p : posicoesConvergentes) {
+                if (isHero(p)) {
+                    // Se o hero estiver num tile adjacente ao inimigo, o inimigo ataca
+                    // Faz return para não se mover a seguir, porque um ataque conta como uma jogada do inimigo
+                    attackHero(p);
+                    return;
+                }
+            }
+
+            movimentoAleatorio(posicoesConvergentes);
+
+        } else {
+            // Se a lista de posições convergentes estiver vazia, significa que entre o hero e o inimigo existem obstáculos (paredes)
+            // Para o inimigo não ficar parado, faz um movimento aleatório normal
+            movimentoAleatorio(posicoesPossiveis());
+        }
     }
 
     private boolean isCloseToHero() {
-        // Para cada movimento possível do inimigo, verifica se correnponde a algum dos tiles do heroRange
+        // Para cada movimento possível do inimigo, verifica se corresponde a algum dos tiles do heroRange
         List<Position> heroRange = getHeroRange();
-        for (Vector2D vector2D : movimentosPossiveis) {
-            for (Position position : heroRange) {
-                if (this.getPosition().plus(vector2D).equals(position)) {
+        List<Position> enemyRange = posicoesPossiveis();
+        for (Position enemyPosition : enemyRange) {
+            for (Position heroPosition : heroRange) {
+                if (enemyPosition.equals(heroPosition)) {
                     return true;
                 }
             }
         }
         return false;
     }
+
 
     private List<Position> getHeroRange() {
         // Obter a posição atual do hero
@@ -139,14 +153,25 @@ public abstract class Enemy extends MovingObject {
         // Posição atual do hero
         Position posicaoHero = hero.getPosition();
         heroRange.add(posicaoHero);
-        heroRange.add(posicaoHero.plus(new Vector2D(1, 0)));
-        heroRange.add(posicaoHero.plus(new Vector2D(-1, 0)));
-        heroRange.add(posicaoHero.plus(new Vector2D(0, 1)));
-        heroRange.add(posicaoHero.plus(new Vector2D(0, -1)));
-        heroRange.add(posicaoHero.plus(new Vector2D(1, 1)));
-        heroRange.add(posicaoHero.plus(new Vector2D(1, -1)));
-        heroRange.add(posicaoHero.plus(new Vector2D(-1, 1)));
-        heroRange.add(posicaoHero.plus(new Vector2D(-1, -1)));
+
+        Vector2D[] posicoesPossiveis = {
+                new Vector2D(1, 0),
+                new Vector2D(-1, 0),
+                new Vector2D(0, 1),
+                new Vector2D(0, -1),
+                new Vector2D(1, 1),
+                new Vector2D(1, -1),
+                new Vector2D(-1, 1),
+                new Vector2D(-1, -1)
+        };
+
+        // Retorna apenas as posições para onde é possível mover
+        for (Vector2D vector2D : posicoesPossiveis) {
+            Position position = posicaoHero.plus(vector2D);
+            if (canMove(position)) {
+                heroRange.add(position);
+            }
+        }
 
         return heroRange;
     }
