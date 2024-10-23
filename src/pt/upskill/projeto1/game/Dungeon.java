@@ -6,6 +6,7 @@ import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.enemies.BadGuy;
 import pt.upskill.projeto1.objects.enemies.Bat;
 import pt.upskill.projeto1.objects.enemies.Skeleton;
+import pt.upskill.projeto1.objects.enemies.Thief;
 import pt.upskill.projeto1.objects.items.GoodMeat;
 import pt.upskill.projeto1.objects.items.Hammer;
 import pt.upskill.projeto1.objects.items.Key;
@@ -119,6 +120,9 @@ public class Dungeon {
                         break;
                     case "G":
                         tiles.add(new BadGuy(new Position(i, j)));
+                        break;
+                    case "T":
+                        tiles.add(new Thief(new Position(i, j)));
                         break;
                     case "k":
                         tiles.add(new Key(new Position(i, j)));

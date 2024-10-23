@@ -18,27 +18,6 @@ public class Skeleton extends Enemy {
         return "Skeleton";
     }
 
-
-    @Override
-    public void move(Vector2D vector2D) {
-        Position novaPosicao = this.getPosition().plus(vector2D);
-
-        // Movimento aleatório
-
-
-
-
-        // Tem que verificar a posição do hero
-
-        if (canMove(novaPosicao)) {
-            this.setPosition(novaPosicao);
-        } else if (isHero(novaPosicao)) {
-            System.out.println("Skeleton atacou");
-            attackHero(novaPosicao);
-        }
-
-    }
-
     @Override
     public boolean isTraversable(MovingObject movingObject) {
         return false;

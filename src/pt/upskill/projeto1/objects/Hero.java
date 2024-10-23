@@ -33,6 +33,8 @@ public class Hero extends MovingObject {
         if (this.points < 0) {
             this.points = 0;
         }
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+        gui.setStatus("Pontuação: " + getPoints());
         System.out.println("Points: " + getPoints() + " (" + points + ")");
     }
 
@@ -67,7 +69,6 @@ public class Hero extends MovingObject {
         return "Hero";
     }
 
-    @Override
     public void move(Vector2D vector2D) {
         Position novaPosicao = this.getPosition().plus(vector2D);
 
@@ -82,7 +83,12 @@ public class Hero extends MovingObject {
             this.setPoints(-1); // cada movimento remove 1 ponto
         } else if (isEnemy(novaPosicao)) {
             System.out.println("Hero atacou");
+            ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+            gui.setStatus("Ataque!!");
             attackEnemy(novaPosicao);
+        } else {
+            ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+            gui.setStatus("Ouch! Esta parede é sólida.");
         }
 
     }
@@ -116,6 +122,7 @@ public class Hero extends MovingObject {
                     // Removendo da gui também, ele dasaparece logo após ser derrotado
                     gui.removeImage(tile);
                     System.out.println("Inimigo derrotado");
+                    gui.setStatus("Inimigo derrotado!");
                     break;
                 }
             }

@@ -19,7 +19,7 @@ public abstract class Enemy extends MovingObject {
     protected int currentHP;
     protected int atk;
     protected int expPoints;
-    protected Vector2D[] movimentosPossiveis = {
+    private final Vector2D[] movimentosPossiveis = {
             new Vector2D(1, 0),
             new Vector2D(-1, 0),
             new Vector2D(0, 1),
@@ -50,10 +50,13 @@ public abstract class Enemy extends MovingObject {
         return expPoints;
     }
 
+    public Vector2D[] getMovimentosPossiveis() {
+        return movimentosPossiveis;
+    }
 
     private List<Position> posicoesPossiveis() {
         List<Position> posicoesPossiveis = new ArrayList<>();
-        for (Vector2D vector2D : this.movimentosPossiveis) {
+        for (Vector2D vector2D : getMovimentosPossiveis()) {
             Position position = this.getPosition().plus(vector2D);
             if (canMove(position) || isHero(position)) {
                 posicoesPossiveis.add(position);
@@ -72,7 +75,7 @@ public abstract class Enemy extends MovingObject {
 
     }
 
-    public void movimentoAleatorio(List<Position> posicoesPossiveis) {
+    private void movimentoAleatorio(List<Position> posicoesPossiveis) {
         // Movimento aleatório
         // Gerar um número aleatório entre 0 e o tamanho da lista de posicoes possiveis
         Random random = new Random();
@@ -90,7 +93,7 @@ public abstract class Enemy extends MovingObject {
     }
 
 
-    public void movimentoConvergente() {
+    private void movimentoConvergente() {
         List<Position> posicoesPossiveisEnemy = posicoesPossiveis();
         List<Position> heroRange = getHeroRange();
         // Lista para guardar as posições que se sobrepõe entre a posicoesPossiveisEnemy e heroRange
@@ -177,7 +180,7 @@ public abstract class Enemy extends MovingObject {
     }
 
 
-    protected boolean isHero(Position position) {
+    private boolean isHero(Position position) {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
         for (ImageTile tile : tiles) {
@@ -189,7 +192,7 @@ public abstract class Enemy extends MovingObject {
     }
 
 
-    protected void attackHero(Position position) {
+    private void attackHero(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 

@@ -13,9 +13,6 @@ public abstract class MovingObject extends GameObject{
         super(position);
     }
 
-    public abstract void move(Vector2D vector2D);
-
-
     // Verifica se é possível mover para a nova posição
     protected boolean canMove(Position novaPosicao) {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());

@@ -15,18 +15,6 @@ public class Bat extends Enemy {
     }
 
     @Override
-    public void move(Vector2D vector2D) {
-        Position novaPosicao = this.getPosition().plus(vector2D);
-
-        if (canMove(novaPosicao)) {
-            this.setPosition(novaPosicao);
-        } else if (isHero(novaPosicao)) {
-            System.out.println("Bat atacou");
-            attackHero(novaPosicao);
-        }
-    }
-
-    @Override
     public boolean isTraversable(MovingObject movingObject) {
         return false;
     }
