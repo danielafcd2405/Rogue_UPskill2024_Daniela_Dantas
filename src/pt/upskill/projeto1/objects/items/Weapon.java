@@ -21,7 +21,7 @@ public abstract class Weapon extends Item{
     }
 
     @Override
-    protected boolean isPickable(MovingObject movingObject) {
+    public boolean isPickable(MovingObject movingObject) {
         if (movingObject instanceof Hero) {
             return true;
         }
@@ -29,7 +29,7 @@ public abstract class Weapon extends Item{
     }
 
     @Override
-    protected boolean isConsumable(MovingObject movingObject) {
+    public boolean isConsumable(MovingObject movingObject) {
         return false;
     }
 

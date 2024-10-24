@@ -17,12 +17,12 @@ public abstract class Consumable extends Item{
     }
 
     @Override
-    protected boolean isPickable(MovingObject movingObject) {
+    public boolean isPickable(MovingObject movingObject) {
         return false;
     }
 
     @Override
-    protected boolean isConsumable(MovingObject movingObject) {
+    public boolean isConsumable(MovingObject movingObject) {
         if (movingObject instanceof Hero) {
             return true;
         }
