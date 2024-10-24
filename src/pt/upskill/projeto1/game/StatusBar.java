@@ -3,6 +3,7 @@ package pt.upskill.projeto1.game;
 import javafx.geometry.Pos;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
+import pt.upskill.projeto1.objects.Fire;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.items.Hammer;
 import pt.upskill.projeto1.objects.items.Item;
@@ -126,6 +127,34 @@ public class StatusBar {
         gui.addStatusImage(item);
 
     }
+
+    public static boolean hasFireBallSpace() {
+        if (isEmptySlot(new Position(0, 0)) || isEmptySlot(new Position(1, 0)) || isEmptySlot(new Position(2, 0))) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void addFireBallToStatusBar() {
+        Position position = null;
+        for (ImageTile tile : statusBarTiles) {
+            if (tile.getPosition().equals(new Position(0, 0)) && isEmptySlot(tile.getPosition())) {
+                position = new Position(0, 0);
+                break;
+            } else if (tile.getPosition().equals(new Position(1, 0)) && isEmptySlot(tile.getPosition())) {
+                position = new Position(1, 0);
+                break;
+            } else if (tile.getPosition().equals(new Position(2, 0))) {
+                position = new Position(2, 0);
+            }
+        }
+
+        Fire fireBall = new Fire(position);
+        statusBarTiles.add(fireBall);
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+        gui.addStatusImage(fireBall);
+    }
+
 
     public static void removeItemFromStatusBar(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();

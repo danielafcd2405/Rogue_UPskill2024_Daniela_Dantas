@@ -224,7 +224,7 @@ public class Hero extends MovingObject {
     private boolean canPickUp() {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
         for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(this.getPosition()) && (tile instanceof Weapon || tile instanceof Key)) {
+            if (tile.getPosition().equals(this.getPosition()) && (tile instanceof Weapon || tile instanceof Key || tile instanceof Fire)) {
                 return true;
             }
         }
@@ -267,6 +267,19 @@ public class Hero extends MovingObject {
                     System.out.println("Hero ATK: " + this.getAtk());
                     Engine.mensagensStatus += "Isto deve ser melhor do que usar os punhos vazios. " +
                             weapon.getBonusATK() + " ATK bonus + " + weapon.getExpPoints() + " pontos | ";
+                } else {
+                    Engine.mensagensStatus += "Não tens mais espaço. Larga um dos itens que tens contigo. ";
+                }
+                return;
+            }
+
+            if (tile.getPosition().equals(this.getPosition()) && tile instanceof Fire) {
+                if (StatusBar.hasFireBallSpace()) {
+                    StatusBar.addFireBallToStatusBar();
+                    this.setPoints(this.getPoints() + ((Fire) tile).getExpPoints());
+                    Engine.mensagensStatus += "Agora tens o poder do fogo do teu lado! + " + ((Fire) tile).getExpPoints() + " pontos |";
+                    tiles.remove(tile);
+                    gui.removeImage(tile);
                 } else {
                     Engine.mensagensStatus += "Não tens mais espaço. Larga um dos itens que tens contigo. ";
                 }

@@ -1,5 +1,7 @@
 package pt.upskill.projeto1.rogue.utils;
 
+import static jdk.nashorn.internal.objects.NativeDebug.getClass;
+
 /**
  * 2D integer position.
  */

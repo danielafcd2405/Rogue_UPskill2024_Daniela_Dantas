@@ -2,6 +2,7 @@ package pt.upskill.projeto1.game;
 
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
+import pt.upskill.projeto1.objects.Fire;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.enemies.BadGuy;
 import pt.upskill.projeto1.objects.enemies.Bat;
@@ -138,6 +139,9 @@ public class Dungeon {
                         break;
                     case "k":
                         tiles.add(new Key(new Position(i, j), keyName));
+                        break;
+                    case "f":
+                        tiles.add(new Fire(new Position(i, j)));
                         break;
                     case "h":
                         tiles.add(new Hammer(new Position(i, j)));
