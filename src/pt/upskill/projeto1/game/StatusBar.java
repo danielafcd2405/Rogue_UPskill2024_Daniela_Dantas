@@ -2,6 +2,10 @@ package pt.upskill.projeto1.game;
 
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
+import pt.upskill.projeto1.objects.items.Hammer;
+import pt.upskill.projeto1.objects.items.Item;
+import pt.upskill.projeto1.objects.items.Key;
+import pt.upskill.projeto1.objects.items.Weapon;
 import pt.upskill.projeto1.objects.status.Black;
 import pt.upskill.projeto1.objects.status.Green;
 import pt.upskill.projeto1.objects.status.Red;
@@ -92,5 +96,44 @@ public class StatusBar {
         gui.newStatusImages(statusBarTiles);
 
     }
+
+
+    public static boolean hasItemSpace() {
+        if (isEmptySlot(new Position(7, 0)) || isEmptySlot(new Position(8, 0)) || isEmptySlot(new Position(9, 0))) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void addItemToStatusBar(Item item) {
+        for (ImageTile tile : statusBarTiles) {
+            if (tile.getPosition().equals(new Position(7, 0)) && isEmptySlot(tile.getPosition())) {
+                item.setPosition(tile.getPosition());
+                break;
+            } else if (tile.getPosition().equals(new Position(8, 0)) && isEmptySlot(tile.getPosition())) {
+                item.setPosition(tile.getPosition());
+                break;
+            } else if (tile.getPosition().equals(new Position(9, 0))) {
+                item.setPosition(tile.getPosition());
+            }
+        }
+
+        statusBarTiles.add(item);
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+        gui.clearStatus();
+        gui.newStatusImages(statusBarTiles);
+
+    }
+
+    private static boolean isEmptySlot(Position position) {
+        // Verifica se a posição dada contém algum item
+        for (ImageTile tile : statusBarTiles) {
+            if (tile.getPosition().equals(position) && tile instanceof Item) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }

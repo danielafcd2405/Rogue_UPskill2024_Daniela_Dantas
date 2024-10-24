@@ -16,6 +16,10 @@ public abstract class Weapon extends Item{
         return bonusATK;
     }
 
+    public void setBonusATK(int bonusATK) {
+        this.bonusATK = bonusATK;
+    }
+
     @Override
     protected boolean isPickable(MovingObject movingObject) {
         if (movingObject instanceof Hero) {
