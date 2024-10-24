@@ -96,7 +96,7 @@ public abstract class Enemy extends MovingObject {
 
     private void movimentoConvergente() {
         List<Position> posicoesPossiveisEnemy = posicoesPossiveis();
-        List<Position> heroRange = getHeroRange();
+        List<Position> heroRange = Hero.getHeroRange();
         // Lista para guardar as posições que se sobrepõe entre a posicoesPossiveisEnemy e heroRange
         List<Position> posicoesConvergentes = new ArrayList<>();
         for (Position enemyPosition : posicoesPossiveisEnemy) {
@@ -129,7 +129,7 @@ public abstract class Enemy extends MovingObject {
 
     private boolean isCloseToHero() {
         // Para cada movimento possível do inimigo, verifica se corresponde a algum dos tiles do heroRange
-        List<Position> heroRange = getHeroRange();
+        List<Position> heroRange = Hero.getHeroRange();
         List<Position> enemyRange = posicoesPossiveis();
         for (Position enemyPosition : enemyRange) {
             for (Position heroPosition : heroRange) {
@@ -141,44 +141,6 @@ public abstract class Enemy extends MovingObject {
         return false;
     }
 
-
-    private List<Position> getHeroRange() {
-        // Obter a posição atual do hero
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        Hero hero = null;
-        for (ImageTile tile : tiles) {
-            if (tile instanceof Hero) {
-                hero = (Hero) tile;
-            }
-        }
-
-        // Lista com os tiles à volta do hero, incluindo as diagonais, e a posição atual do hero
-        List<Position> heroRange = new ArrayList<>();
-        // Posição atual do hero
-        Position posicaoHero = hero.getPosition();
-        heroRange.add(posicaoHero);
-
-        Vector2D[] posicoesPossiveis = {
-                new Vector2D(1, 0),
-                new Vector2D(-1, 0),
-                new Vector2D(0, 1),
-                new Vector2D(0, -1),
-                new Vector2D(1, 1),
-                new Vector2D(1, -1),
-                new Vector2D(-1, 1),
-                new Vector2D(-1, -1)
-        };
-
-        // Retorna apenas as posições para onde é possível mover
-        for (Vector2D vector2D : posicoesPossiveis) {
-            Position position = posicaoHero.plus(vector2D);
-            if (canMove(position)) {
-                heroRange.add(position);
-            }
-        }
-
-        return heroRange;
-    }
 
 
     private boolean isHero(Position position) {

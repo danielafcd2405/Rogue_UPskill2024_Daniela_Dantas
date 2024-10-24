@@ -65,6 +65,8 @@ public class Dungeon {
 
         // Lista para guardar as definições das portas
         List<String> linhasDefinicaoPortas = new ArrayList<>();
+        // Lista para guardar as definições das chaves
+        List<String> linhasDefinicaoChaves = new ArrayList<>();
         // Lista para guardar apenas as linhas que representam a sala
         List<String> linhasDeSala = new ArrayList<>();
 
@@ -74,6 +76,8 @@ public class Dungeon {
                 String linha = roomScanner.nextLine();
                 if (linha.startsWith("# 0") || linha.startsWith("# 1") || linha.startsWith("# 2")) {
                     linhasDefinicaoPortas.add(linha);
+                } else if (linha.startsWith("# k")) {
+                    linhasDefinicaoChaves.add(linha);
                 } else if (! linha.startsWith("#")) {
                     linhasDeSala.add(linha);
                 }
@@ -83,14 +87,22 @@ public class Dungeon {
             System.out.println("Ficheiro não encontrado.");;
         }
 
-        List<ImageTile> tiles = buildRoom(linhasDeSala);
+
+        // Nome da chave; Apenas deve existir uma única chave por sala
+        String keyName = "";
+        if ( ! linhasDefinicaoChaves.isEmpty()) {
+            String[] linha = linhasDefinicaoChaves.get(0).split(" ");
+            keyName = linha[2];
+        }
+
+        List<ImageTile> tiles = buildRoom(linhasDeSala, keyName);
         addRoomConnections(tiles, linhasDefinicaoPortas);
 
         return tiles;
     }
 
 
-    private static List<ImageTile> buildRoom(List<String> linhasDeSala) {
+    private static List<ImageTile> buildRoom(List<String> linhasDeSala, String keyName) {
         List<ImageTile> tiles = new ArrayList<>();
 
         // Adiciona Floor 10x10 à sala, de modo a garantir que os tiles do tipo Floor estão sempre por baixo
@@ -125,7 +137,7 @@ public class Dungeon {
                         tiles.add(new Thief(new Position(i, j)));
                         break;
                     case "k":
-                        tiles.add(new Key(new Position(i, j)));
+                        tiles.add(new Key(new Position(i, j), keyName));
                         break;
                     case "h":
                         tiles.add(new Hammer(new Position(i, j)));
@@ -173,10 +185,11 @@ public class Dungeon {
 
             switch (doorType) {
                 case "D":
+                    tiles.add(new DoorOpen(posicao, doorNumber, nextRoom, nextDoor));
                     tiles.add(new DoorClosed(posicao, doorNumber, nextRoom, nextDoor, key));
                     break;
                 case "E":
-                    tiles.add(new DoorOpen(posicao, doorNumber, nextRoom, nextDoor, key));
+                    tiles.add(new DoorOpen(posicao, doorNumber, nextRoom, nextDoor));
                     break;
             }
         }

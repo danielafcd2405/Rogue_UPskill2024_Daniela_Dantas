@@ -1,7 +1,9 @@
 package pt.upskill.projeto1.game;
 
+import javafx.geometry.Pos;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
+import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.items.Hammer;
 import pt.upskill.projeto1.objects.items.Item;
 import pt.upskill.projeto1.objects.items.Key;
@@ -14,6 +16,7 @@ import pt.upskill.projeto1.rogue.utils.Position;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class StatusBar {
 
@@ -126,8 +129,64 @@ public class StatusBar {
 
     public static void removeItemFromStatusBar(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        // Vai buscar o hero, para depois remover o bonusATK, caso o item seja uma arma
+        Hero hero = null;
+        for (ImageTile tile : tiles){
+            if (tile instanceof Hero) {
+                hero = (Hero) tile;
+            }
+        }
+
         for (ImageTile tile : statusBarTiles) {
             if (tile.getPosition().equals(position) && tile instanceof Item) {
+                if (tile instanceof Weapon) {
+                    hero.setAtk(hero.getAtk() - ((Weapon) tile).getBonusATK());
+                    Engine.mensagensStatus += "Arma descartada - " + ((Weapon) tile).getBonusATK() + " ATK | ";
+                    System.out.println("Hero ATK: " + hero.getAtk());
+                }
+
+                // Larga o item no tile disponível em frente ao hero
+                // O item volta a aparecer no mapa, para evitar situações em que uma chave é eliminada sem querer
+                // O jogador pode voltar atrás para recolher os itens que largou
+                // O tile onde vai ser largado o item é escolhido aleatoriamente
+                List<Position> heroRange = Hero.getHeroRange();
+                List<Position> posicoesLivres = new ArrayList<>(); // Posições sem mais nenhum item
+                for (ImageTile tile2 : tiles) {
+                    for (Position p : heroRange) {
+                        if (tile2.getPosition().equals(p)) {
+                            posicoesLivres.add(p);
+                        }
+                    }
+                }
+                Random random = new Random();
+                int randomIndex = 0;
+                Position itemPosition = null;
+                // Para evitar que o item seja largado em cima do hero
+                do {
+                    randomIndex = random.nextInt(posicoesLivres.size());
+                    itemPosition = posicoesLivres.get(randomIndex);
+                } while (itemPosition.equals(hero.getPosition()));
+
+                // Alterar a posição do item
+                ((Item) tile).setPosition(itemPosition);
+                // Adicionar ao mapa
+                tiles.add(tile);
+                gui.addImage(tile);
+
+                // Remover da StatusBar
+                statusBarTiles.remove(tile);
+                gui.removeStatusImage(tile);
+                break;
+            }
+        }
+    }
+
+
+    public static void removeKeyFromStatusBar(String keyName) {
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+        for (ImageTile tile : statusBarTiles) {
+            if (tile instanceof Key && ((Key) tile).getKeyName().equals(keyName)) {
                 statusBarTiles.remove(tile);
                 gui.removeStatusImage(tile);
                 break;

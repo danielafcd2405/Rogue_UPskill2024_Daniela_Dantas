@@ -43,6 +43,7 @@ public class Engine {
     }
 
     public void notify(int keyPressed){
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
         Hero hero = null;
 
@@ -100,9 +101,17 @@ public class Engine {
 
         if (statusBarPosition != null) {
             StatusBar.removeItemFromStatusBar(statusBarPosition);
+            for (ImageTile tile : tiles) {
+                if (tile instanceof Hero) {
+                    tiles.remove(tile);
+                    gui.removeImage(tile);
+                    break;
+                }
+            }
+            tiles.add(hero);
+            gui.addImage(hero);
         }
 
-        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         gui.setStatus(mensagensStatus);
         mensagensStatus = "";
 

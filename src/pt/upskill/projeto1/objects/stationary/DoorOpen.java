@@ -8,11 +8,10 @@ import pt.upskill.projeto1.rogue.utils.Position;
 
 public class DoorOpen extends DoorWay {
 
-    public DoorOpen(Position position, int doorNumber, String nextRoom, int nextDoor, String key) {
+    public DoorOpen(Position position, int doorNumber, String nextRoom, int nextDoor) {
         super(position, doorNumber);
         this.nextRoom = nextRoom;
         this.nextDoor = nextDoor;
-        this.key = key;
     }
 
 

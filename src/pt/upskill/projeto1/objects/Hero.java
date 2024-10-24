@@ -9,9 +9,11 @@ import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.Consumable;
 import pt.upskill.projeto1.objects.items.Key;
 import pt.upskill.projeto1.objects.items.Weapon;
+import pt.upskill.projeto1.objects.stationary.DoorClosed;
 import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Hero extends MovingObject {
@@ -68,18 +70,39 @@ public class Hero extends MovingObject {
         return "Hero";
     }
 
+    @Override
+    public void setPosition(Position position) {
+        super.setPosition(position);
+        // Abre uma porta (destrancada) para a porta ficar aberta depois de passar por ela
+        // É útil deixar uma porta aberta depois de passar por ela, para ajudar o jogador a navegar no mapa e saber por onde já passou
+        if (isDoorClosed(this.getPosition())) {
+            openTheDoor(this.getPosition());
+        }
+    }
+
     public void move(Vector2D vector2D) {
         Position novaPosicao = this.getPosition().plus(vector2D);
 
         // Se a novaPosicao estiver fora das coordenadas da sala, avança para uma nova sala
+        // Os únicos pontos onde isto pode acontecer é depois de passar por uma porta, o resta da sala está rodeada por
+        // Walls, que são intransponíveis
         if (novaPosicao.getX() < 0 || novaPosicao.getX() > 9 || novaPosicao.getY() < 0 || novaPosicao.getY() > 9) {
             Dungeon.changeRoom(this.getPosition());
             return;
         }
 
         if (canMove(novaPosicao)) {
+            if (isDoorClosed(novaPosicao) && isDoorLocked(novaPosicao)) {
+                if (hasKey(novaPosicao)) {
+                    unlockDoor(novaPosicao);
+                    System.out.println("Porta foi destrancada");
+                } else {
+                    Engine.mensagensStatus += "Ouch! É para puxar em vez de empurrar? Não! Esta porta está trancada! Tenta procurar a chave certa. | ";
+                    return;
+                }
+            }
             this.setPosition(novaPosicao);
-            this.setPoints(this.getPoints() -1); // cada movimento remove 1 ponto
+            this.setPoints(this.getPoints() - 1); // cada movimento remove 1 ponto
             Engine.mensagensStatus += "Pontuação: " + getPoints() + " | ";
             // Se na próxima posição estiver um item, faz a ação correspondente
             if (canConsume()) {
@@ -97,6 +120,77 @@ public class Hero extends MovingObject {
 
     }
 
+    private boolean isDoorLocked(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
+                if (((DoorClosed) tile).isLocked()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hasKey(Position position) {
+        // Vai buscar o nome da chave à porta
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        String keyName = "";
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
+                keyName = ((DoorClosed) tile).getKey();
+            }
+        }
+
+        // Vai buscar as chaves presentes no inventário e verifica se alguma tem o nome certo
+        List<ImageTile> statusBarTiles = StatusBar.getStatusBarTiles();
+        for (ImageTile statusTile : statusBarTiles) {
+            if (statusTile instanceof Key && ((Key) statusTile).getKeyName().equals(keyName)) {
+                System.out.println("Chave: " + ((Key) statusTile).getKeyName());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void unlockDoor(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        // Muda o atributo isLocked para false
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
+                ((DoorClosed) tile).setLocked(false);
+                Engine.mensagensStatus += "Porta destrancada! | ";
+                StatusBar.removeKeyFromStatusBar(((DoorClosed) tile).getKey());
+                break;
+            }
+        }
+    }
+
+
+    private boolean isDoorClosed(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private void openTheDoor(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
+                tiles.remove(tile);
+                gui.removeImage(tile);
+                break;
+            }
+        }
+    }
+
+
     private boolean canConsume() {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
         for (ImageTile tile : tiles) {
@@ -112,7 +206,7 @@ public class Hero extends MovingObject {
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(this.getPosition()) && tile instanceof Consumable) {
                 // Restora HP do hero
-                this.setCurrentHP(this.getCurrentHP()+((Consumable) tile).getRestoreHP());
+                this.setCurrentHP(this.getCurrentHP() + ((Consumable) tile).getRestoreHP());
                 System.out.println("Restored HP");
                 Engine.mensagensStatus += "Sentes um fluxo de vitalidade a correr pelas tuas veias: + " + ((Consumable) tile).getRestoreHP() + " HP | ";
                 // Adiciona os expPoints do item que apanhou
@@ -170,6 +264,7 @@ public class Hero extends MovingObject {
 
                     this.setPoints(this.getPoints() + weapon.getExpPoints());
                     this.setAtk(this.getAtk() + weapon.getBonusATK());
+                    System.out.println("Hero ATK: " + this.getAtk());
                     Engine.mensagensStatus += "Isto deve ser melhor do que usar os punhos vazios. " +
                             weapon.getBonusATK() + " ATK bonus + " + weapon.getExpPoints() + " pontos | ";
                 } else {
@@ -179,8 +274,6 @@ public class Hero extends MovingObject {
             }
         }
     }
-
-
 
 
     private boolean isEnemy(Position position) {
@@ -223,5 +316,45 @@ public class Hero extends MovingObject {
     @Override
     public boolean isTraversable(MovingObject movingObject) {
         return false;
+    }
+
+
+
+    public static List<Position> getHeroRange() {
+        // Obter a posição atual do hero
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        Hero hero = null;
+        for (ImageTile tile : tiles) {
+            if (tile instanceof Hero) {
+                hero = (Hero) tile;
+            }
+        }
+
+        // Lista com os tiles à volta do hero, incluindo as diagonais, e a posição atual do hero
+        List<Position> heroRange = new ArrayList<>();
+        // Posição atual do hero
+        Position posicaoHero = hero.getPosition();
+        heroRange.add(posicaoHero);
+
+        Vector2D[] posicoesPossiveis = {
+                new Vector2D(1, 0),
+                new Vector2D(-1, 0),
+                new Vector2D(0, 1),
+                new Vector2D(0, -1),
+                new Vector2D(1, 1),
+                new Vector2D(1, -1),
+                new Vector2D(-1, 1),
+                new Vector2D(-1, -1)
+        };
+
+        // Retorna apenas as posições para onde é possível mover
+        for (Vector2D vector2D : posicoesPossiveis) {
+            Position position = posicaoHero.plus(vector2D);
+            if (hero.canMove(position)) {
+                heroRange.add(position);
+            }
+        }
+
+        return heroRange;
     }
 }

@@ -10,8 +10,9 @@ public class Key extends Item {
 
     private String keyName;
 
-    public Key(Position position) {
+    public Key(Position position, String keyName) {
         super(position);
+        this.keyName = keyName;
         expPoints = 10;
     }
 
