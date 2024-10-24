@@ -120,9 +120,19 @@ public class StatusBar {
 
         statusBarTiles.add(item);
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        gui.clearStatus();
-        gui.newStatusImages(statusBarTiles);
+        gui.addStatusImage(item);
 
+    }
+
+    public static void removeItemFromStatusBar(Position position) {
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+        for (ImageTile tile : statusBarTiles) {
+            if (tile.getPosition().equals(position) && tile instanceof Item) {
+                statusBarTiles.remove(tile);
+                gui.removeStatusImage(tile);
+                break;
+            }
+        }
     }
 
     private static boolean isEmptySlot(Position position) {

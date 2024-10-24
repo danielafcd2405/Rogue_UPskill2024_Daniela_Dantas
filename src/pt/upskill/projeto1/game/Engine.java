@@ -70,10 +70,7 @@ public class Engine {
         if (vector2D != null && hero != null) {
             // O hero move primeiro
             hero.move(vector2D);
-
-
             // Só depois movem os enimigos
-
             // Esta lista vai guardar todos os inimigos para depois aplicar o método move() a cada um dos objetos da lista
             List<Enemy> enemies = new ArrayList<>();
             for (ImageTile tile : tiles) {
@@ -87,6 +84,22 @@ public class Engine {
             for (Enemy enemy : enemies) {
                 enemy.moveEnemy();
             }
+        }
+
+        // Remover itens da StatusBar
+        Position statusBarPosition = null;
+        if (keyPressed == KeyEvent.VK_1) {
+            statusBarPosition = new Position(7, 0);
+        }
+        if (keyPressed == KeyEvent.VK_2) {
+            statusBarPosition = new Position(8, 0);
+        }
+        if (keyPressed == KeyEvent.VK_3) {
+            statusBarPosition = new Position(9, 0);
+        }
+
+        if (statusBarPosition != null) {
+            StatusBar.removeItemFromStatusBar(statusBarPosition);
         }
 
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
