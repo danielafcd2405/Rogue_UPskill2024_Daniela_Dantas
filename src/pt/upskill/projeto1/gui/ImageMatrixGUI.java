@@ -151,7 +151,8 @@ public class ImageMatrixGUI {
 		if(engine==null){
 			throw new IllegalArgumentException("Game Engine is not set for GUI");
 		}
-		engine.notify(lastKeyPressed);
+		//engine.notify(lastKeyPressed);
+		engine.actions(lastKeyPressed);
 		keyPressed = false;
 	}
 

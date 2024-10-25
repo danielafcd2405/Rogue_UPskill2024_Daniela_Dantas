@@ -1,7 +1,9 @@
 package pt.upskill.projeto1.objects;
 
 import pt.upskill.projeto1.game.Dungeon;
+import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.gui.FireTile;
+import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.Item;
@@ -19,8 +21,19 @@ public class Fire extends Item implements FireTile {
     @Override
     public boolean validateImpact() {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        Hero hero = null;
+        for (ImageTile tile : tiles) {
+            if (tile instanceof Hero) {
+                hero = (Hero) tile;
+                break;
+            }
+        }
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(this.getPosition()) && tile instanceof Enemy) {
+                hero.setPoints(hero.getPoints() + ((Enemy) tile).getExpPoints());
+                Engine.mensagensStatus += "Inimigo derrotado numa maravilhosa explosão de fogo! + " + ((Enemy) tile).getExpPoints() + " pontos |";
+                tiles.remove(tile);
+                ImageMatrixGUI.getInstance().removeImage(tile);
                 return false;
             }
         }

@@ -5,12 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f409e310-38d4-47a1-8bba-48a3a2b42e6f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Interactable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Actions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/StatusBar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/StatusBar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/ImageMatrixGUI$InfoWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/ImageMatrixGUI$InfoWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/ImageMatrixGUI$KeyWatcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/ImageMatrixGUI$KeyWatcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/ImageMatrixGUI$RogueWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/ImageMatrixGUI$RogueWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/ImageMatrixGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/ImageMatrixGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/StatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/StatusBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/ImageMatrixGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/ImageMatrixGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Fire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Fire.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Consumable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Consumable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Key.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Weapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Weapon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>

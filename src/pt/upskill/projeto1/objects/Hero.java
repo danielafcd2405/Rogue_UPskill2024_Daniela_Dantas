@@ -2,7 +2,9 @@ package pt.upskill.projeto1.objects;
 
 import pt.upskill.projeto1.game.Dungeon;
 import pt.upskill.projeto1.game.Engine;
+import pt.upskill.projeto1.game.FireBallThread;
 import pt.upskill.projeto1.game.StatusBar;
+import pt.upskill.projeto1.gui.FireTile;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.objects.enemies.Enemy;
@@ -10,6 +12,9 @@ import pt.upskill.projeto1.objects.items.Consumable;
 import pt.upskill.projeto1.objects.items.Key;
 import pt.upskill.projeto1.objects.items.Weapon;
 import pt.upskill.projeto1.objects.stationary.DoorClosed;
+import pt.upskill.projeto1.objects.stationary.DoorWay;
+import pt.upskill.projeto1.objects.stationary.Wall;
+import pt.upskill.projeto1.rogue.utils.Direction;
 import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
 
@@ -285,6 +290,89 @@ public class Hero extends MovingObject {
                 }
                 return;
             }
+        }
+    }
+
+    public void castFireBall() {
+        FireTile fireBall = new Fire(this.getPosition());
+        FireBallThread fireBallThread = null;
+        if (checkUp(this.getPosition())) {
+            fireBallThread = new FireBallThread(Direction.UP, fireBall);
+        } else if (checkDown(this.getPosition())) {
+            fireBallThread = new FireBallThread(Direction.DOWN, fireBall);
+        } else if (checkLeft(this.getPosition())) {
+            fireBallThread = new FireBallThread(Direction.LEFT, fireBall);
+        } else if (checkRight(this.getPosition())) {
+            fireBallThread = new FireBallThread(Direction.RIGHT, fireBall);
+        }
+
+        // Para a fireBall aparecer no mapa
+        ImageMatrixGUI.getInstance().addImage(fireBall);
+        fireBallThread.run();
+
+    }
+
+
+    public boolean enemyInRangeOfFireBall(Position position) {
+        if (checkUp(position) || checkDown(position) || checkRight(position) || checkLeft(position)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkUp(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && (tile instanceof Wall || tile instanceof DoorWay)) {
+                return false;
+            }
+        }
+        if (isEnemy(position)) {
+            return true;
+        } else {
+            return checkUp(position.plus(Direction.UP.asVector()));
+        }
+    }
+
+    public boolean checkDown(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && (tile instanceof Wall || tile instanceof DoorWay)) {
+                return false;
+            }
+        }
+        if (isEnemy(position)) {
+            return true;
+        } else {
+            return checkUp(position.plus(Direction.DOWN.asVector()));
+        }
+    }
+
+    public boolean checkLeft(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && (tile instanceof Wall || tile instanceof DoorWay)) {
+                return false;
+            }
+        }
+        if (isEnemy(position)) {
+            return true;
+        } else {
+            return checkUp(position.plus(Direction.LEFT.asVector()));
+        }
+    }
+
+    public boolean checkRight(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && (tile instanceof Wall || tile instanceof DoorWay)) {
+                return false;
+            }
+        }
+        if (isEnemy(position)) {
+            return true;
+        } else {
+            return checkUp(position.plus(Direction.RIGHT.asVector()));
         }
     }
 

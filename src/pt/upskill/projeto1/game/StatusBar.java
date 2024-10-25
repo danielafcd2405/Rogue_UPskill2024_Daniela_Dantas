@@ -155,6 +155,25 @@ public class StatusBar {
         gui.addStatusImage(fireBall);
     }
 
+    public static boolean hasFireBalls() {
+        if (!isEmptySlot(new Position(0, 0)) || !isEmptySlot(new Position(1, 0)) || !isEmptySlot(new Position(2, 0))) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void removeFireBall() {
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
+        for (ImageTile statusTile : statusBarTiles) {
+            if (statusTile instanceof Fire) {
+                // Remove a primeira fire ball que encontrar
+                statusBarTiles.remove(statusTile);
+                gui.removeStatusImage(statusTile);
+                break;
+            }
+        }
+    }
+
 
     public static void removeItemFromStatusBar(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();

@@ -42,18 +42,9 @@ public class Engine {
         }
     }
 
-    public void notify(int keyPressed){
-        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        Hero hero = null;
 
-        for (ImageTile tile : tiles) {
-            if (tile instanceof Hero) {
-                hero = (Hero) tile;
-                break;
-            }
-        }
-
+    public void actions(int keyPressed) {
+        // Movimento do hero e dos inimigos
         Vector2D vector2D = null;
         if (keyPressed == KeyEvent.VK_DOWN){
             vector2D = Direction.DOWN.asVector();
@@ -68,24 +59,16 @@ public class Engine {
             vector2D = Direction.RIGHT.asVector();
         }
 
-        if (vector2D != null && hero != null) {
-            // O hero move primeiro
-            hero.move(vector2D);
-            // Só depois movem os enimigos
-            // Esta lista vai guardar todos os inimigos para depois aplicar o método move() a cada um dos objetos da lista
-            List<Enemy> enemies = new ArrayList<>();
-            for (ImageTile tile : tiles) {
-                if(tile instanceof Enemy) {
-                    enemies.add((Enemy) tile);
-                } else if (tile instanceof Hero) {
-                    hero = (Hero) tile;
-                }
-            }
-
-            for (Enemy enemy : enemies) {
-                enemy.moveEnemy();
-            }
+        if (vector2D != null) {
+            Actions.movement(vector2D);
         }
+
+
+        // Lançar bolas de fogo
+        if (keyPressed == KeyEvent.VK_SPACE) {
+            Actions.lauchFireBall();
+        }
+
 
         // Remover itens da StatusBar
         Position statusBarPosition = null;
@@ -100,22 +83,17 @@ public class Engine {
         }
 
         if (statusBarPosition != null) {
-            StatusBar.removeItemFromStatusBar(statusBarPosition);
-            for (ImageTile tile : tiles) {
-                if (tile instanceof Hero) {
-                    tiles.remove(tile);
-                    gui.removeImage(tile);
-                    break;
-                }
-            }
-            tiles.add(hero);
-            gui.addImage(hero);
+            Actions.removeItems(statusBarPosition);
         }
 
+
+        // Mostrar as mensagens de Status
+        ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         gui.setStatus(mensagensStatus);
         mensagensStatus = "";
-
     }
+
+
 
 
     public static void main(String[] args){
