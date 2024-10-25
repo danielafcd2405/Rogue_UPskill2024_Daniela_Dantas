@@ -15,30 +15,17 @@ public class Actions {
     public static void movement(Vector2D vector2D) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        Hero hero = null;
-
+        Hero hero = Hero.getINSTANCE();
+        // O hero move primeiro
+        hero.move(vector2D);
+        // Só depois movem os enimigos
+        List<Enemy> enemies = new ArrayList<>();
         for (ImageTile tile : tiles) {
-            if (tile instanceof Hero) {
-                hero = (Hero) tile;
-                break;
+            if (tile instanceof Enemy) {
+                ((Enemy) tile).moveEnemy();
             }
         }
 
-        if (hero != null) {
-            // O hero move primeiro
-            hero.move(vector2D);
-            // Só depois movem os enimigos
-            // Esta lista vai guardar todos os inimigos para depois aplicar o method moveEnemy() a cada um dos objetos da lista
-            List<Enemy> enemies = new ArrayList<>();
-            for (ImageTile tile : tiles) {
-                if(tile instanceof Enemy) {
-                    enemies.add((Enemy) tile);
-                }
-            }
-            for (Enemy enemy : enemies) {
-                enemy.moveEnemy();
-            }
-        }
     }
 
 
@@ -48,10 +35,9 @@ public class Actions {
         // O hero é guardado, removido e volta a ser adicionado, para o hero ficar por cima do item que foi largado no mapa
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        Hero hero = null;
+        Hero hero = Hero.getINSTANCE();
         for (ImageTile tile : tiles) {
             if (tile instanceof Hero) {
-                hero = (Hero) tile;
                 tiles.remove(tile);
                 gui.removeImage(tile);
                 break;
@@ -63,21 +49,16 @@ public class Actions {
 
 
     public static void lauchFireBall() {
-        if (StatusBar.hasFireBalls()) {
-            StatusBar.removeFireBall();
-            List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-            Hero hero = null;
-            for (ImageTile tile : tiles) {
-                if (tile instanceof Hero) {
-                    hero = (Hero) tile;
-                    break;
-                }
-            }
-            if (hero.enemyInRangeOfFireBall(hero.getPosition())) {
+        Hero hero = Hero.getINSTANCE();
+        if (hero.enemyInRangeOfFireBall(hero.getPosition())) {
+            if (StatusBar.hasFireBalls()) {
+                StatusBar.removeFireBall();
                 hero.castFireBall();
+            } else {
+                Engine.mensagensStatus += "Não tens bolas de fogo | ";
             }
         } else {
-            Engine.mensagensStatus += "Não tens bolas de fogo | ";
+            Engine.mensagensStatus += "Não tens inimigos na tua linha de ataque. | ";
         }
     }
 

@@ -53,7 +53,12 @@ public class StatusBar {
 
         double hpPercentage = (double) heroCurrentHP / heroMaxHP;
 
-        if (hpPercentage >= 0 && hpPercentage < 0.125) {
+        if (hpPercentage <= 0) {
+            statusBarTiles.add(new Red(new Position(3, 0)));
+            statusBarTiles.add(new Red(new Position(4, 0)));
+            statusBarTiles.add(new Red(new Position(5, 0)));
+            statusBarTiles.add(new Red(new Position(6, 0)));
+        } else if (hpPercentage > 0.0 && hpPercentage < 0.125) {
             statusBarTiles.add(new RedGreen(new Position(3, 0)));
             statusBarTiles.add(new Red(new Position(4, 0)));
             statusBarTiles.add(new Red(new Position(5, 0)));
@@ -88,7 +93,7 @@ public class StatusBar {
             statusBarTiles.add(new Green(new Position(4, 0)));
             statusBarTiles.add(new Green(new Position(5, 0)));
             statusBarTiles.add(new RedGreen(new Position(6, 0)));
-        } else {
+        } else if (hpPercentage >= 0.875) {
             statusBarTiles.add(new Green(new Position(3, 0)));
             statusBarTiles.add(new Green(new Position(4, 0)));
             statusBarTiles.add(new Green(new Position(5, 0)));

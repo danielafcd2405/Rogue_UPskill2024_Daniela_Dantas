@@ -24,7 +24,7 @@ public class Engine {
         List<ImageTile> tiles = dungeonMap.get("room0.txt");
         Dungeon.setCurrentRoom("room0.txt");
 
-        Hero hero = new Hero(new Position(3, 6));
+        Hero hero = Hero.getINSTANCE();
         tiles.add(hero);
 
         gui.setEngine(this);

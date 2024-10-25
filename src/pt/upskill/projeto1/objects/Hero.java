@@ -23,6 +23,8 @@ import java.util.List;
 
 public class Hero extends MovingObject {
 
+    private static final Hero INSTANCE = new Hero(new Position(3, 6));
+
     private int points = 50;
     private final int maxHP = 80;
     private int currentHP;
@@ -32,6 +34,12 @@ public class Hero extends MovingObject {
         super(position);
         this.currentHP = maxHP;
     }
+
+
+    public static Hero getINSTANCE() {
+        return INSTANCE;
+    }
+
 
     public int getPoints() {
         return points;
@@ -66,8 +74,12 @@ public class Hero extends MovingObject {
         if (currentHP > maxHP) {
             this.currentHP = maxHP;
         }
-        // chamar método para alterar a Status Bar
+        // chamar method para alterar a Status Bar
         StatusBar.updateStatusBar(this.maxHP, this.currentHP);
+        if (currentHP <= 0) {
+            // TODO
+            // gameOver()
+        }
     }
 
     @Override
@@ -344,7 +356,7 @@ public class Hero extends MovingObject {
         if (isEnemy(position)) {
             return true;
         } else {
-            return checkUp(position.plus(Direction.DOWN.asVector()));
+            return checkDown(position.plus(Direction.DOWN.asVector()));
         }
     }
 
@@ -358,7 +370,7 @@ public class Hero extends MovingObject {
         if (isEnemy(position)) {
             return true;
         } else {
-            return checkUp(position.plus(Direction.LEFT.asVector()));
+            return checkLeft(position.plus(Direction.LEFT.asVector()));
         }
     }
 
@@ -372,7 +384,7 @@ public class Hero extends MovingObject {
         if (isEnemy(position)) {
             return true;
         } else {
-            return checkUp(position.plus(Direction.RIGHT.asVector()));
+            return checkRight(position.plus(Direction.RIGHT.asVector()));
         }
     }
 
@@ -424,12 +436,7 @@ public class Hero extends MovingObject {
     public static List<Position> getHeroRange() {
         // Obter a posição atual do hero
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        Hero hero = null;
-        for (ImageTile tile : tiles) {
-            if (tile instanceof Hero) {
-                hero = (Hero) tile;
-            }
-        }
+        Hero hero = getINSTANCE();
 
         // Lista com os tiles à volta do hero, incluindo as diagonais, e a posição atual do hero
         List<Position> heroRange = new ArrayList<>();

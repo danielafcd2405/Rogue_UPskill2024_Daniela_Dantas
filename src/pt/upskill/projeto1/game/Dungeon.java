@@ -205,18 +205,14 @@ public class Dungeon {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
+        Hero hero = Hero.getINSTANCE();
         String nextRoom = "";
-        Hero hero = new Hero(new Position(0, 0));
         int nextDoor = 0;
         // Extrai a informação de configuração da porta por onde passou
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(position) && tile instanceof DoorWay) {
                 nextRoom = ((DoorWay) tile).getNextRoom();
                 nextDoor = ((DoorWay) tile).getNextDoor();
-            }
-            // Guarda o hero
-            if (tile instanceof Hero) {
-                hero = (Hero) tile;
             }
         }
 
