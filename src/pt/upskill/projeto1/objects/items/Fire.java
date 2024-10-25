@@ -1,12 +1,13 @@
-package pt.upskill.projeto1.objects;
+package pt.upskill.projeto1.objects.items;
 
-import pt.upskill.projeto1.game.Dungeon;
+import pt.upskill.projeto1.gui.Dungeon;
 import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.gui.FireTile;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
+import pt.upskill.projeto1.objects.Hero;
+import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.objects.enemies.Enemy;
-import pt.upskill.projeto1.objects.items.Item;
 import pt.upskill.projeto1.rogue.utils.Position;
 
 import java.util.List;

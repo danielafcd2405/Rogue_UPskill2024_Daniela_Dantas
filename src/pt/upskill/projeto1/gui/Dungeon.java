@@ -1,8 +1,6 @@
-package pt.upskill.projeto1.game;
+package pt.upskill.projeto1.gui;
 
-import pt.upskill.projeto1.gui.ImageMatrixGUI;
-import pt.upskill.projeto1.gui.ImageTile;
-import pt.upskill.projeto1.objects.Fire;
+import pt.upskill.projeto1.objects.items.Fire;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.enemies.BadGuy;
 import pt.upskill.projeto1.objects.enemies.Bat;
@@ -21,11 +19,16 @@ import java.util.*;
 public class Dungeon {
 
     // Guarda todas as salas de acordo com o nome do ficheiro de configuração da sala correspondente
-    private static final Map<String, List<ImageTile>> dungeonMap = buildDungeon();
+    private static Map<String, List<ImageTile>> dungeonMap = buildDungeon();
     private static String currentRoom;
+    private static Map<String, List<ImageTile>> savedDungeonMap;
 
     public static Map<String, List<ImageTile>> getDungeonMap() {
         return dungeonMap;
+    }
+
+    public static void setDungeonMap(Map<String, List<ImageTile>> dungeonMap) {
+        Dungeon.dungeonMap = dungeonMap;
     }
 
     public static String getCurrentRoom() {
@@ -34,6 +37,14 @@ public class Dungeon {
 
     public static void setCurrentRoom(String currentRoom) {
         Dungeon.currentRoom = currentRoom;
+    }
+
+    public static Map<String, List<ImageTile>> getSavedDungeonMap() {
+        return savedDungeonMap;
+    }
+
+    public static void setSavedDungeonMap(Map<String, List<ImageTile>> savedDungeonMap) {
+        Dungeon.savedDungeonMap = savedDungeonMap;
     }
 
     // Lê todos os ficheiros da pasta rooms e para cada ficheiro, guarda uma lista de ImageTiles da sala

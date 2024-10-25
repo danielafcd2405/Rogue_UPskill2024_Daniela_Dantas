@@ -1,14 +1,11 @@
 package pt.upskill.projeto1.objects;
 
-import pt.upskill.projeto1.game.Dungeon;
+import pt.upskill.projeto1.gui.*;
 import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.game.FireBallThread;
-import pt.upskill.projeto1.game.StatusBar;
-import pt.upskill.projeto1.gui.FireTile;
-import pt.upskill.projeto1.gui.ImageMatrixGUI;
-import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.Consumable;
+import pt.upskill.projeto1.objects.items.Fire;
 import pt.upskill.projeto1.objects.items.Key;
 import pt.upskill.projeto1.objects.items.Weapon;
 import pt.upskill.projeto1.objects.stationary.DoorClosed;
@@ -78,7 +75,7 @@ public class Hero extends MovingObject {
         StatusBar.updateStatusBar(this.maxHP, this.currentHP);
         if (currentHP <= 0) {
             // TODO
-            // gameOver()
+            GameOver.gameOver();
         }
     }
 

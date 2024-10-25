@@ -1,11 +1,8 @@
-package pt.upskill.projeto1.game;
+package pt.upskill.projeto1.gui;
 
-import javafx.geometry.Pos;
-import pt.upskill.projeto1.gui.ImageMatrixGUI;
-import pt.upskill.projeto1.gui.ImageTile;
-import pt.upskill.projeto1.objects.Fire;
+import pt.upskill.projeto1.game.Engine;
+import pt.upskill.projeto1.objects.items.Fire;
 import pt.upskill.projeto1.objects.Hero;
-import pt.upskill.projeto1.objects.items.Hammer;
 import pt.upskill.projeto1.objects.items.Item;
 import pt.upskill.projeto1.objects.items.Key;
 import pt.upskill.projeto1.objects.items.Weapon;

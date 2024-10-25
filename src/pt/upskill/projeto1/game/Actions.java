@@ -1,7 +1,9 @@
 package pt.upskill.projeto1.game;
 
+import pt.upskill.projeto1.gui.Dungeon;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
+import pt.upskill.projeto1.gui.StatusBar;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.rogue.utils.Position;
