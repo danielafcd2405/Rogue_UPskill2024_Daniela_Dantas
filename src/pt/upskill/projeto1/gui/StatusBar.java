@@ -22,6 +22,7 @@ import java.util.Random;
 public class StatusBar {
 
     private static List<ImageTile> statusBarTiles = buildStatusBar();
+    private static List<ImageTile> savedStatusBarTiles;
 
     public static List<ImageTile> getStatusBarTiles() {
         return statusBarTiles;
@@ -29,6 +30,14 @@ public class StatusBar {
 
     public static void setStatusBarTiles(List<ImageTile> statusBarTiles) {
         StatusBar.statusBarTiles = statusBarTiles;
+    }
+
+    public static List<ImageTile> getSavedStatusBarTiles() {
+        return savedStatusBarTiles;
+    }
+
+    public static void setSavedStatusBarTiles(List<ImageTile> savedStatusBarTiles) {
+        StatusBar.savedStatusBarTiles = savedStatusBarTiles;
     }
 
     public static List<ImageTile> buildStatusBar() {

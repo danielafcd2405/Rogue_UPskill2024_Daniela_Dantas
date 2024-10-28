@@ -1,15 +1,12 @@
 package pt.upskill.projeto1.gui;
 
 import pt.upskill.projeto1.game.Engine;
-import pt.upskill.projeto1.objects.items.Fire;
+import pt.upskill.projeto1.objects.items.*;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.enemies.BadGuy;
 import pt.upskill.projeto1.objects.enemies.Bat;
 import pt.upskill.projeto1.objects.enemies.Skeleton;
 import pt.upskill.projeto1.objects.enemies.Thief;
-import pt.upskill.projeto1.objects.items.GoodMeat;
-import pt.upskill.projeto1.objects.items.Hammer;
-import pt.upskill.projeto1.objects.items.Key;
 import pt.upskill.projeto1.objects.stationary.*;
 import pt.upskill.projeto1.rogue.utils.Position;
 
@@ -23,6 +20,7 @@ public class Dungeon {
     private static Map<String, List<ImageTile>> dungeonMap = buildDungeon();
     private static String currentRoom;
     private static Map<String, List<ImageTile>> savedDungeonMap;
+    private static String savedCurrentRoom;
 
     public static Map<String, List<ImageTile>> getDungeonMap() {
         return dungeonMap;
@@ -46,6 +44,14 @@ public class Dungeon {
 
     public static void setSavedDungeonMap(Map<String, List<ImageTile>> savedDungeonMap) {
         Dungeon.savedDungeonMap = savedDungeonMap;
+    }
+
+    public static String getSavedCurrentRoom() {
+        return savedCurrentRoom;
+    }
+
+    public static void setSavedCurrentRoom(String savedCurrentRoom) {
+        Dungeon.savedCurrentRoom = savedCurrentRoom;
     }
 
     // Lê todos os ficheiros da pasta rooms e para cada ficheiro, guarda uma lista de ImageTiles da sala
@@ -148,6 +154,9 @@ public class Dungeon {
                         break;
                     case "T":
                         tiles.add(new Thief(new Position(i, j)));
+                        break;
+                    case "P":
+                        tiles.add(new SavePoint(new Position(i, j)));
                         break;
                     case "k":
                         tiles.add(new Key(new Position(i, j), keyName));

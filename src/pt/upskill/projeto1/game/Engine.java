@@ -15,6 +15,8 @@ public class Engine {
 
     public static String mensagensStatus = "";
     public static Hero hero = Hero.setHero();
+    public static Hero savedHero;
+    public static int attemptCounter = 0;
 
     public void init(){
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
@@ -88,6 +90,16 @@ public class Engine {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         gui.setStatus(mensagensStatus);
         mensagensStatus = "";
+
+        if (hero.getCurrentHP() <= 0) {
+            if (attemptCounter < 3) {
+                SaveGame.loadLastSave();
+                attemptCounter++;
+            } else {
+                GameOver.gameOver();
+            }
+        }
+
 
     }
 

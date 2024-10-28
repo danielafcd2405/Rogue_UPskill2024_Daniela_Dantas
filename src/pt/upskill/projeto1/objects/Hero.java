@@ -1,5 +1,7 @@
 package pt.upskill.projeto1.objects;
 
+import pt.upskill.projeto1.game.GameOver;
+import pt.upskill.projeto1.game.SaveGame;
 import pt.upskill.projeto1.gui.*;
 import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.game.FireBallThread;
@@ -10,6 +12,7 @@ import pt.upskill.projeto1.objects.items.Key;
 import pt.upskill.projeto1.objects.items.Weapon;
 import pt.upskill.projeto1.objects.stationary.DoorClosed;
 import pt.upskill.projeto1.objects.stationary.DoorWay;
+import pt.upskill.projeto1.objects.stationary.SavePoint;
 import pt.upskill.projeto1.objects.stationary.Wall;
 import pt.upskill.projeto1.rogue.utils.Direction;
 import pt.upskill.projeto1.rogue.utils.Position;
@@ -76,7 +79,8 @@ public class Hero extends MovingObject {
 
         if (currentHP <= 0) {
             // TODO
-            GameOver.gameOver();
+            //GameOver.gameOver();
+            //SaveGame.loadLastSave();
         }
 
     }
@@ -125,7 +129,10 @@ public class Hero extends MovingObject {
                 consumeItem();
             } else if (canPickUp()) {
                 pickUpItem();
+            } else if (isSavePoint()) {
+                SaveGame.saveGame();
             }
+
         } else if (isEnemy(novaPosicao)) {
             System.out.println("Hero atacou");
             Engine.mensagensStatus += "Ataque!! | ";
@@ -134,6 +141,16 @@ public class Hero extends MovingObject {
             Engine.mensagensStatus += "Ouch! Esta parede é sólida. | ";
         }
 
+    }
+
+    private boolean isSavePoint() {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(this.getPosition()) && tile instanceof SavePoint) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isDoorLocked(Position position) {
