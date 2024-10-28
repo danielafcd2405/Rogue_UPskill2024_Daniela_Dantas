@@ -1,11 +1,14 @@
 package pt.upskill.projeto1.gui;
 
+import javafx.geometry.Pos;
 import pt.upskill.projeto1.game.Engine;
+import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.Fire;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.items.Item;
 import pt.upskill.projeto1.objects.items.Key;
 import pt.upskill.projeto1.objects.items.Weapon;
+import pt.upskill.projeto1.objects.stationary.DoorWay;
 import pt.upskill.projeto1.objects.status.Black;
 import pt.upskill.projeto1.objects.status.Green;
 import pt.upskill.projeto1.objects.status.Red;
@@ -185,55 +188,59 @@ public class StatusBar {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
         // Vai buscar o hero, para depois remover o bonusATK, caso o item seja uma arma
-        Hero hero = null;
-        for (ImageTile tile : tiles){
-            if (tile instanceof Hero) {
-                hero = (Hero) tile;
+        Hero hero = Engine.hero;
+
+        // Larga o item num tile vazio (apenas Floor) em redor do hero
+        // O item volta a aparecer no mapa, para evitar situações em que uma chave é eliminada sem querer
+        // O jogador pode voltar atrás para recolher os itens que largou
+        List<Position> heroRange = Hero.getHeroRange(); // Posições sem mais nenhum item
+        List<Position> posicoesLivres = new ArrayList<>();
+        for (Position p : heroRange) {
+            if (isEmptyFloor(p)) {
+                posicoesLivres.add(p);
             }
         }
 
-        for (ImageTile tile : statusBarTiles) {
-            if (tile.getPosition().equals(position) && tile instanceof Item) {
-                if (tile instanceof Weapon) {
-                    hero.setAtk(hero.getAtk() - ((Weapon) tile).getBonusATK());
-                    Engine.mensagensStatus += "Arma descartada - " + ((Weapon) tile).getBonusATK() + " ATK | ";
-                    System.out.println("Hero ATK: " + hero.getAtk());
-                }
-
-                // Larga o item no tile disponível em frente ao hero
-                // O item volta a aparecer no mapa, para evitar situações em que uma chave é eliminada sem querer
-                // O jogador pode voltar atrás para recolher os itens que largou
-                // O tile onde vai ser largado o item é escolhido aleatoriamente
-                List<Position> heroRange = Hero.getHeroRange();
-                List<Position> posicoesLivres = new ArrayList<>(); // Posições sem mais nenhum item
-                for (ImageTile tile2 : tiles) {
-                    for (Position p : heroRange) {
-                        if (tile2.getPosition().equals(p)) {
-                            posicoesLivres.add(p);
-                        }
+        if (!posicoesLivres.isEmpty()) {
+            for (ImageTile tile : statusBarTiles) {
+                if (tile.getPosition().equals(position) && tile instanceof Item) {
+                    if (tile instanceof Weapon) {
+                        // Remove o bonusATK da arma que foi descartada
+                        hero.setAtk(hero.getAtk() - ((Weapon) tile).getBonusATK());
+                        Engine.mensagensStatus += "Arma descartada - " + ((Weapon) tile).getBonusATK() + " ATK | ";
                     }
+
+                    // O tile onde vai ser largado o item é escolhido aleatoriamente
+                    Random random = new Random();
+                    int randomIndex = random.nextInt(posicoesLivres.size());
+                    Position itemPosition = posicoesLivres.get(randomIndex);
+                    // Alterar a posição do item
+                    ((Item) tile).setPosition(itemPosition);
+                    // Adicionar ao mapa
+                    tiles.add(tile);
+                    gui.addImage(tile);
+
+                    // Remover da StatusBar
+                    statusBarTiles.remove(tile);
+                    gui.removeStatusImage(tile);
+                    return;
                 }
-                Random random = new Random();
-                int randomIndex = 0;
-                Position itemPosition = null;
-                // Para evitar que o item seja largado em cima do hero
-                do {
-                    randomIndex = random.nextInt(posicoesLivres.size());
-                    itemPosition = posicoesLivres.get(randomIndex);
-                } while (itemPosition.equals(hero.getPosition()));
+            }
+        } else {
+            Engine.mensagensStatus += "Não há espaço neste local para descartar itens. | ";
+        }
 
-                // Alterar a posição do item
-                ((Item) tile).setPosition(itemPosition);
-                // Adicionar ao mapa
-                tiles.add(tile);
-                gui.addImage(tile);
+    }
 
-                // Remover da StatusBar
-                statusBarTiles.remove(tile);
-                gui.removeStatusImage(tile);
-                break;
+    public static boolean isEmptyFloor(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) &&
+                    (tile instanceof Item || tile instanceof Enemy || tile instanceof DoorWay || tile instanceof Hero)) {
+                return false;
             }
         }
+        return true;
     }
 
 

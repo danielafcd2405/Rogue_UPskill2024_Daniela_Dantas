@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f409e310-38d4-47a1-8bba-48a3a2b42e6f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/scores/game_scores.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Actions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Actions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/Dungeon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scores/game_scores.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/game_scores.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/GameOver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/GameOver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/StatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/StatusBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Fire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Fire.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,19 +46,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Engine.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DirectionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DirectionTest.testAsVector.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PositionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.Vector2DTest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/danta/Documents/UpSkill/Projeto 1 Rogue/Exemplos/upskill-roguelike-master/upskill-roguelike-master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Engine.executor": "Run",
+    "JUnit.DirectionTest.executor": "Run",
+    "JUnit.DirectionTest.testAsVector.executor": "Run",
+    "JUnit.PositionTest.executor": "Run",
+    "JUnit.Vector2DTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/danta/Documents/UpSkill/Projeto 1 Rogue/Exemplos/upskill-roguelike-master/upskill-roguelike-master"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\danta\Documents\UpSkill\Projeto 1 Rogue\Rogue_UPskill2023_v1_Nome_Completo\rooms" />
