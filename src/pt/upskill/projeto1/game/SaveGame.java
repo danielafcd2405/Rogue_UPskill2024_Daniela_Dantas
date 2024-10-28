@@ -28,7 +28,6 @@ public class SaveGame {
         Map<String, List<ImageTile>> dungeonMap = Dungeon.getSavedDungeonMap();
         Dungeon.setDungeonMap(dungeonMap);
         List<ImageTile> tiles = dungeonMap.get(Dungeon.getSavedCurrentRoom());
-        tiles.add(Engine.hero);
         Dungeon.setCurrentRoom(Dungeon.getSavedCurrentRoom());
 
         // Nova StatusBar

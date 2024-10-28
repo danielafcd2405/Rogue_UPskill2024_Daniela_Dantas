@@ -18,10 +18,11 @@ public class GameOver {
 
         recordGameScore(finalScore);
 
-        int[] scores = orderGameScores(readGameScoresFile());
+        List<Integer> scores = readGameScoresFile();
+        scores.sort(Collections.reverseOrder());
         String leaderBoard = "\nLeader Board\n";
         for (int i = 0; i < 5; i++) {
-            leaderBoard += scores[i] + "\n";
+            leaderBoard += scores.get(i) + "\n";
         }
 
         ImageMatrixGUI.getInstance().showMessage("GameOver", "Pontuação final: \n" + finalScore +
@@ -63,6 +64,8 @@ public class GameOver {
 
         gui.newImages(tiles);
         gui.newStatusImages(statusTiles);
+
+        Engine.attemptCounter = 0;
 
         gui.setStatus("O jogo começou!");
 

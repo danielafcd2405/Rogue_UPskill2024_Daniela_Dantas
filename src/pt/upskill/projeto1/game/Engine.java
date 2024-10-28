@@ -32,6 +32,8 @@ public class Engine {
         List<ImageTile> statusBarTiles = StatusBar.getStatusBarTiles();
         gui.newStatusImages(statusBarTiles);
 
+        SaveGame.saveGame();
+
         gui.go();
 
         gui.setStatus("O jogo começou!");
