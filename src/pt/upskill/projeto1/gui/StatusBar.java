@@ -18,10 +18,14 @@ import java.util.Random;
 
 public class StatusBar {
 
-    private static final List<ImageTile> statusBarTiles = buildStatusBar();
+    private static List<ImageTile> statusBarTiles = buildStatusBar();
 
     public static List<ImageTile> getStatusBarTiles() {
         return statusBarTiles;
+    }
+
+    public static void setStatusBarTiles(List<ImageTile> statusBarTiles) {
+        StatusBar.statusBarTiles = statusBarTiles;
     }
 
     public static List<ImageTile> buildStatusBar() {

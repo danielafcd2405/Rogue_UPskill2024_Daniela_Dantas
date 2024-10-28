@@ -17,7 +17,7 @@ public class Actions {
     public static void movement(Vector2D vector2D) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        Hero hero = Hero.getINSTANCE();
+        Hero hero = Engine.hero;
         // O hero move primeiro
         hero.move(vector2D);
         // Só depois movem os enimigos
@@ -37,7 +37,7 @@ public class Actions {
         // O hero é guardado, removido e volta a ser adicionado, para o hero ficar por cima do item que foi largado no mapa
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        Hero hero = Hero.getINSTANCE();
+        Hero hero = Engine.hero;
         for (ImageTile tile : tiles) {
             if (tile instanceof Hero) {
                 tiles.remove(tile);
@@ -51,7 +51,7 @@ public class Actions {
 
 
     public static void lauchFireBall() {
-        Hero hero = Hero.getINSTANCE();
+        Hero hero = Engine.hero;
         if (hero.enemyInRangeOfFireBall(hero.getPosition())) {
             if (StatusBar.hasFireBalls()) {
                 StatusBar.removeFireBall();

@@ -22,7 +22,7 @@ public class Fire extends Item implements FireTile {
     @Override
     public boolean validateImpact() {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        Hero hero = Hero.getINSTANCE();
+        Hero hero = Engine.hero;
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(this.getPosition()) && tile instanceof Enemy) {
                 hero.setPoints(hero.getPoints() + ((Enemy) tile).getExpPoints());

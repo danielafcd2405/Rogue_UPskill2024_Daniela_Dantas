@@ -20,21 +20,21 @@ import java.util.List;
 
 public class Hero extends MovingObject {
 
-    private static final Hero INSTANCE = new Hero(new Position(3, 6));
-
-    private int points = 50;
-    private final int maxHP = 80;
+    private int points;
+    private final int maxHP;
     private int currentHP;
-    private int atk = 10;
+    private int atk;
 
     public Hero(Position position) {
         super(position);
+        this.points = 50;
+        this.maxHP = 80;
+        this.atk = 10;
         this.currentHP = maxHP;
     }
 
-
-    public static Hero getINSTANCE() {
-        return INSTANCE;
+    public static Hero setHero() {
+        return new Hero(new Position(3, 6));
     }
 
 
@@ -73,10 +73,12 @@ public class Hero extends MovingObject {
         }
         // chamar method para alterar a Status Bar
         StatusBar.updateStatusBar(this.maxHP, this.currentHP);
+
         if (currentHP <= 0) {
             // TODO
             GameOver.gameOver();
         }
+
     }
 
     @Override
@@ -433,7 +435,7 @@ public class Hero extends MovingObject {
     public static List<Position> getHeroRange() {
         // Obter a posição atual do hero
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        Hero hero = getINSTANCE();
+        Hero hero = Engine.hero;
 
         // Lista com os tiles à volta do hero, incluindo as diagonais, e a posição atual do hero
         List<Position> heroRange = new ArrayList<>();

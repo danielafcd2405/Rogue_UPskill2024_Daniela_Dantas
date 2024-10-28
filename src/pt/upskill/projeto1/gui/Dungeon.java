@@ -1,5 +1,6 @@
 package pt.upskill.projeto1.gui;
 
+import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.objects.items.Fire;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.enemies.BadGuy;
@@ -216,7 +217,7 @@ public class Dungeon {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
-        Hero hero = Hero.getINSTANCE();
+        Hero hero = Engine.hero;
         String nextRoom = "";
         int nextDoor = 0;
         // Extrai a informação de configuração da porta por onde passou

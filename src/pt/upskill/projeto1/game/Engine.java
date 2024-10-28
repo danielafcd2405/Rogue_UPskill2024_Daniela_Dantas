@@ -1,9 +1,6 @@
 package pt.upskill.projeto1.game;
 
-import pt.upskill.projeto1.gui.Dungeon;
-import pt.upskill.projeto1.gui.ImageMatrixGUI;
-import pt.upskill.projeto1.gui.ImageTile;
-import pt.upskill.projeto1.gui.StatusBar;
+import pt.upskill.projeto1.gui.*;
 import pt.upskill.projeto1.objects.*;
 import pt.upskill.projeto1.rogue.utils.Direction;
 import pt.upskill.projeto1.rogue.utils.Position;
@@ -17,6 +14,7 @@ import java.util.Map;
 public class Engine {
 
     public static String mensagensStatus = "";
+    public static Hero hero = Hero.setHero();
 
     public void init(){
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
@@ -24,8 +22,6 @@ public class Engine {
         Map<String, List<ImageTile>> dungeonMap = Dungeon.getDungeonMap();
         List<ImageTile> tiles = dungeonMap.get("room0.txt");
         Dungeon.setCurrentRoom("room0.txt");
-        Dungeon.setSavedDungeonMap(new HashMap<>(dungeonMap));
-        Hero hero = Hero.getINSTANCE();
         tiles.add(hero);
 
         gui.setEngine(this);
@@ -92,6 +88,7 @@ public class Engine {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         gui.setStatus(mensagensStatus);
         mensagensStatus = "";
+
     }
 
 
