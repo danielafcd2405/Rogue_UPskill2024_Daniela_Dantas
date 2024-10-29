@@ -5,13 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f409e310-38d4-47a1-8bba-48a3a2b42e6f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/images/Bookshelves.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/DoorLocked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/Pedestal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/Potion.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/SecretPassage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/Statue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/TrapSafe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/TrapTriggered.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/VoidLeft.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/VoidRight.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rooms/room10.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rooms/room3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rooms/room4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rooms/room5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rooms/room6.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rooms/room7.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rooms/room8.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rooms/room9.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Potion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Sword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Bookshelves.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/DoorLocked.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Grass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Pedestal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/SecretPassage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/StairsDown.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/StairsUp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Statue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/Trap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/TrapSafe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/TrapTriggered.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/VoidLeft.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/stationary/VoidRight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Hero.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/Hero.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/Dungeon.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/Dungeon.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/items/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/items/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scores/game_scores.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/game_scores.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/SaveGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/SaveGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/room0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room0.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/room1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/room2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/Dungeon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/items/Item.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,20 +82,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Engine.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DirectionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DirectionTest.testAsVector.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PositionTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.Vector2DTest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/danta/Documents/UpSkill/Projeto 1 Rogue/Exemplos/upskill-roguelike-master/upskill-roguelike-master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Engine.executor": "Run",
+    "JUnit.DirectionTest.executor": "Run",
+    "JUnit.DirectionTest.testAsVector.executor": "Run",
+    "JUnit.PositionTest.executor": "Run",
+    "JUnit.Vector2DTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/danta/Documents/UpSkill/Projeto 1 Rogue/Rogue_UPskill2023_v1_Nome_Completo/rooms"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\danta\Documents\UpSkill\Projeto 1 Rogue\Rogue_UPskill2023_v1_Nome_Completo\rooms" />
+      <recent name="C:\Users\danta\Documents\UpSkill\Projeto 1 Rogue\Rogue_UPskill2023_v1_Nome_Completo\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\danta\Documents\UpSkill\Projeto 1 Rogue\Rogue_UPskill2023_v1_Nome_Completo\images" />
       <recent name="C:\Users\danta\Documents\UpSkill\Projeto 1 Rogue\Rogue_UPskill2023_v1_Nome_Completo\rooms" />

@@ -69,6 +69,8 @@ public class Dungeon {
             System.out.println("Erro ao ler ficheiros");
         }
 
+        System.out.println(files.length);
+
         for (File file : files) {
             System.out.println(file.getName());
             dungeonMap.put(file.getName(), readRoomMap(file.getName()));
@@ -143,6 +145,38 @@ public class Dungeon {
                     case "W":
                         tiles.add(new Wall(new Position(i, j)));
                         break;
+                    case "g":
+                        tiles.add(new Grass(new Position(i, j)));
+                        break;
+                    case "s":
+                        tiles.add(new Statue(new Position(i, j)));
+                        break;
+                    case "u":
+                        tiles.add(new TrapSafe(new Position(i, j)));
+                        tiles.add(new Trap(new Position(i, j), true));
+                        break;
+                    case "t":
+                        tiles.add(new TrapTriggered(new Position(i, j)));
+                        tiles.add(new Trap(new Position(i, j), false));
+                        break;
+                    case "d":
+                        tiles.add(new Sword(new Position(i, j)));
+                        break;
+                    case "v":
+                        tiles.add(new VoidLeft(new Position(i, j)));
+                        break;
+                    case "o":
+                        tiles.add(new VoidRight(new Position(i, j)));
+                        break;
+                    case "p":
+                        tiles.add(new Potion(new Position(i, j)));
+                        break;
+                    case "A":
+                        tiles.add(new Pedestal(new Position(i, j)));
+                        break;
+                    case "O":
+                        tiles.add(new Bookshelves(new Position(i, j)));
+                        break;
                     case "S":
                         tiles.add(new Skeleton(new Position(i, j)));
                         break;
@@ -215,6 +249,20 @@ public class Dungeon {
                     break;
                 case "E":
                     tiles.add(new DoorOpen(posicao, doorNumber, nextRoom, nextDoor));
+                    break;
+                case "L":
+                    tiles.add(new DoorOpen(posicao, doorNumber, nextRoom, nextDoor));
+                    tiles.add(new DoorLocked(posicao, doorNumber, nextRoom, nextDoor, key));
+                    break;
+                case "w":
+                    tiles.add(new StairsDown(posicao, doorNumber, nextRoom, nextDoor));
+                    break;
+                case "z":
+                    tiles.add(new StairsUp(posicao, doorNumber, nextRoom, nextDoor));
+                    break;
+                case "e":
+                    tiles.add(new DoorOpen(posicao, doorNumber, nextRoom, nextDoor));
+                    tiles.add(new SecretPassage(posicao, doorNumber, nextRoom, nextDoor));
                     break;
             }
         }

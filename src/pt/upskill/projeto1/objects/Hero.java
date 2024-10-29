@@ -7,10 +7,7 @@ import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.game.FireBallThread;
 import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.*;
-import pt.upskill.projeto1.objects.stationary.DoorClosed;
-import pt.upskill.projeto1.objects.stationary.DoorWay;
-import pt.upskill.projeto1.objects.stationary.SavePoint;
-import pt.upskill.projeto1.objects.stationary.Wall;
+import pt.upskill.projeto1.objects.stationary.*;
 import pt.upskill.projeto1.rogue.utils.Direction;
 import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
@@ -109,7 +106,10 @@ public class Hero extends MovingObject {
         }
 
         if (canMove(novaPosicao)) {
-            if (isDoorClosed(novaPosicao) && isDoorLocked(novaPosicao)) {
+            if (isStairs(novaPosicao)) {
+                Dungeon.changeRoom(novaPosicao);
+                return;
+            } else if (isDoorClosed(novaPosicao) && isDoorLocked(novaPosicao)) {
                 if (hasKey(novaPosicao)) {
                     unlockDoor(novaPosicao);
                     System.out.println("Porta foi destrancada");
@@ -138,6 +138,16 @@ public class Hero extends MovingObject {
             Engine.mensagensStatus += "Ouch! Esta parede é sólida. | ";
         }
 
+    }
+
+    private boolean isStairs(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && (tile instanceof StairsDown || tile instanceof StairsUp)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isSavePoint() {
@@ -200,7 +210,7 @@ public class Hero extends MovingObject {
     private boolean isDoorClosed(Position position) {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
         for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
+            if (tile.getPosition().equals(position) && (tile instanceof DoorClosed)) {
                 return true;
             }
         }
@@ -212,7 +222,7 @@ public class Hero extends MovingObject {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
+            if (tile.getPosition().equals(position) && (tile instanceof DoorClosed)) {
                 tiles.remove(tile);
                 gui.removeImage(tile);
                 break;
