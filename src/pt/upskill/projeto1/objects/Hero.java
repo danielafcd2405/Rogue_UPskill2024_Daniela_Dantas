@@ -6,10 +6,7 @@ import pt.upskill.projeto1.gui.*;
 import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.game.FireBallThread;
 import pt.upskill.projeto1.objects.enemies.Enemy;
-import pt.upskill.projeto1.objects.items.Consumable;
-import pt.upskill.projeto1.objects.items.Fire;
-import pt.upskill.projeto1.objects.items.Key;
-import pt.upskill.projeto1.objects.items.Weapon;
+import pt.upskill.projeto1.objects.items.*;
 import pt.upskill.projeto1.objects.stationary.DoorClosed;
 import pt.upskill.projeto1.objects.stationary.DoorWay;
 import pt.upskill.projeto1.objects.stationary.SavePoint;
@@ -267,17 +264,20 @@ public class Hero extends MovingObject {
 
     private void pickUpItem() {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        List<ImageTile> savedTiles = Dungeon.getSavedDungeonMap().get(Dungeon.getCurrentRoom());
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         Key key = null;
         Weapon weapon = null;
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(this.getPosition()) && tile instanceof Key) {
-                key = (Key) tile;
+                // TODO chaves diferentes
+                key = new Key(tile.getPosition(), ((Key) tile).getKeyName());
+                key.setExpPoints(((Key) tile).getExpPoints());
                 if (StatusBar.hasItemSpace()) {
                     // Adicionar a chave à StatusBar
                     StatusBar.addItemToStatusBar(key);
-                    gui.removeImage(tile);
                     tiles.remove(tile);
+                    gui.removeImage(tile);
 
                     // Adicionar ao hero os pontos do item apanhado
                     this.setPoints(this.getPoints() + key.getExpPoints());
@@ -289,7 +289,11 @@ public class Hero extends MovingObject {
             }
 
             if (tile.getPosition().equals(this.getPosition()) && tile instanceof Weapon) {
-                weapon = (Weapon) tile;
+                if (tile instanceof Hammer) {
+                    weapon = new Hammer(tile.getPosition());
+                } // TODO mais armas
+                weapon.setExpPoints(((Weapon) tile).getExpPoints());
+                weapon.setBonusATK(((Weapon) tile).getBonusATK());
                 if (StatusBar.hasItemSpace()) {
                     StatusBar.addItemToStatusBar(weapon);
                     gui.removeImage(tile);
@@ -427,12 +431,12 @@ public class Hero extends MovingObject {
                 // Se o HP ficar a 0, o inimigo é removido da sala e o hero recebe os pontos correspondentes
                 if (((Enemy) tile).getCurrentHP() <= 0) {
                     this.setPoints(this.getPoints() + ((Enemy) tile).getExpPoints());
-                    tiles.remove(tile);
                     // Tenho que remover do dungeonMap e dos tiles que estão na gui
                     // Se remover só do dungeonMap, o inimigo fica visível após ser removido
                     // É impossível interagir com ele e após sair e voltar entrar na sala ele desaparece de vez
                     // Removendo da gui também, ele dasaparece logo após ser derrotado
                     gui.removeImage(tile);
+                    tiles.remove(tile);
                     System.out.println("Inimigo derrotado");
                     Engine.mensagensStatus += "Inimigo derrotado! + " + ((Enemy) tile).getExpPoints() + " pontos | ";
                     return;

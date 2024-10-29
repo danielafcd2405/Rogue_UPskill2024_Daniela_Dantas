@@ -17,6 +17,10 @@ public abstract class Item extends GameObject implements Interactable {
         return expPoints;
     }
 
+    public void setExpPoints(int expPoints) {
+        this.expPoints = expPoints;
+    }
+
     @Override
     protected boolean isTraversable(MovingObject movingObject) {
         if (movingObject instanceof Hero) {
