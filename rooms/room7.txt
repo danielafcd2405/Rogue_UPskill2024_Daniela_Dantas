@@ -1,0 +1,14 @@
+#
+# 0 E room6.txt 1
+# 1 z room8.txt 1
+#
+WWWWW0WWWW
+W       PW
+W        W
+W        W
+WtuttttttW
+WtuuuttttW
+WtttuttttW
+Wm       W
+W      1 W
+WWWWWWWWWW

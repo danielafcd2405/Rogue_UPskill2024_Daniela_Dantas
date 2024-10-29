@@ -1,13 +1,13 @@
 #
-# 0 D room1.txt 2
+# 0 D room1.txt 1
 #
 WWWW0WWWWW
-W        W
-W  S     W
-WWWWW    W
-W   W    W
-W   W  WWW
-W  H     W
-W   f    W
-W     h  W
+Wg s s  gW
+Wg      gW
+Wg      gW
+Wg      gW
+Wg      gW
+Wg      gW
+Wg      gW
+Wg      gW
 WWWWWWWWWW
