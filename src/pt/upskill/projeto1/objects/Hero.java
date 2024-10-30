@@ -6,10 +6,7 @@ import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.game.FireBallThread;
 import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.*;
-import pt.upskill.projeto1.objects.passages.DoorClosed;
-import pt.upskill.projeto1.objects.passages.DoorWay;
-import pt.upskill.projeto1.objects.passages.StairsDown;
-import pt.upskill.projeto1.objects.passages.StairsUp;
+import pt.upskill.projeto1.objects.passages.*;
 import pt.upskill.projeto1.objects.stationary.*;
 import pt.upskill.projeto1.objects.stationary.interactable.SavePoint;
 import pt.upskill.projeto1.objects.stationary.interactable.Trap;
@@ -89,6 +86,9 @@ public class Hero extends MovingObject {
         // É útil deixar uma porta aberta depois de passar por ela, para ajudar o jogador a navegar no mapa e saber por onde já passou
         if (isDoorClosed(this.getPosition())) {
             openTheDoor(this.getPosition());
+        } else if (isSecretPassage(this.getPosition()) && hasHammer()) {
+            // Para 'partir' a parede do outro lado, depois de mudar de sala
+            breakWall(this.getPosition());
         }
     }
 
@@ -111,6 +111,13 @@ public class Hero extends MovingObject {
                     Engine.mensagensStatus += "Porta foi destrancada. | ";
                 } else {
                     Engine.mensagensStatus += "Ouch! É para puxar em vez de empurrar? Não! Esta porta está trancada! Tenta procurar a chave certa. | ";
+                    return;
+                }
+            } else if (isSecretPassage(novaPosicao)) {
+                if (hasHammer()) {
+                    breakWall(novaPosicao);
+                } else {
+                    Engine.mensagensStatus += "Esta parede parece frágil. Se tivesses alguma coisa que desse para a partir... | ";
                     return;
                 }
             }
@@ -136,6 +143,37 @@ public class Hero extends MovingObject {
             Engine.mensagensStatus += "Não podes ir por aí. | ";
         }
 
+    }
+
+    private boolean isSecretPassage(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && tile instanceof SecretPassage) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasHammer() {
+        List<ImageTile> statusTiles = StatusBar.getStatusBarTiles();
+        for (ImageTile tile : statusTiles) {
+            if (tile instanceof Hammer) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void breakWall(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && tile instanceof SecretPassage) {
+                ImageMatrixGUI.getInstance().removeImage(tile);
+                tiles.remove(tile);
+                return;
+            }
+        }
     }
 
     private boolean isTrap() {
