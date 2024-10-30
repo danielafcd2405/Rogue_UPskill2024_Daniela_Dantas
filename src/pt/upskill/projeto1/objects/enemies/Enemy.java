@@ -89,7 +89,6 @@ public abstract class Enemy extends MovingObject {
         } while (!canMove(novaPosicao));
 
         this.setPosition(novaPosicao);
-        System.out.println("Enemy moved: " + novaPosicao);
     }
 
 
@@ -161,8 +160,8 @@ public abstract class Enemy extends MovingObject {
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(position) && tile instanceof Hero) {
                 ((Hero) tile).setCurrentHP(((Hero) tile).getCurrentHP() - this.getAtk());
-                ((Hero) tile).setPoints(((Hero) tile).getPoints() - 5);
-                Engine.mensagensStatus += "Ouch! - 5 pontos | ";
+                ((Hero) tile).setPoints(((Hero) tile).getPoints() - 3);
+                Engine.mensagensStatus += "Ouch! - 3 pontos | ";
                 System.out.println("Hero recebeu dano. currentHP: " + ((Hero) tile).getCurrentHP());
             }
         }

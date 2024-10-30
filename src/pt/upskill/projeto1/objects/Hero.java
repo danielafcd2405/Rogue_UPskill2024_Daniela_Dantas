@@ -1,13 +1,18 @@
 package pt.upskill.projeto1.objects;
 
-import pt.upskill.projeto1.game.GameOver;
 import pt.upskill.projeto1.game.SaveGame;
 import pt.upskill.projeto1.gui.*;
 import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.game.FireBallThread;
 import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.*;
+import pt.upskill.projeto1.objects.passages.DoorClosed;
+import pt.upskill.projeto1.objects.passages.DoorWay;
+import pt.upskill.projeto1.objects.passages.StairsDown;
+import pt.upskill.projeto1.objects.passages.StairsUp;
 import pt.upskill.projeto1.objects.stationary.*;
+import pt.upskill.projeto1.objects.stationary.interactable.SavePoint;
+import pt.upskill.projeto1.objects.stationary.interactable.Trap;
 import pt.upskill.projeto1.rogue.utils.Direction;
 import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
@@ -70,13 +75,6 @@ public class Hero extends MovingObject {
         }
         // chamar method para alterar a Status Bar
         StatusBar.updateStatusBar(this.maxHP, this.currentHP);
-
-        if (currentHP <= 0) {
-            // TODO
-            //GameOver.gameOver();
-            //SaveGame.loadLastSave();
-        }
-
     }
 
     @Override
@@ -97,22 +95,20 @@ public class Hero extends MovingObject {
     public void move(Vector2D vector2D) {
         Position novaPosicao = this.getPosition().plus(vector2D);
 
-        // Se a novaPosicao estiver fora das coordenadas da sala, avança para uma nova sala
-        // Os únicos pontos onde isto pode acontecer é depois de passar por uma porta, o resta da sala está rodeada por
-        // Walls, que são intransponíveis
-        if (novaPosicao.getX() < 0 || novaPosicao.getX() > 9 || novaPosicao.getY() < 0 || novaPosicao.getY() > 9) {
-            Dungeon.changeRoom(this.getPosition());
-            return;
-        }
-
         if (canMove(novaPosicao)) {
             if (isStairs(novaPosicao)) {
                 Dungeon.changeRoom(novaPosicao);
                 return;
+            } else if (novaPosicao.getX() < 0 || novaPosicao.getX() > 9 || novaPosicao.getY() < 0 || novaPosicao.getY() > 9) {
+                // Se a novaPosicao estiver fora das coordenadas da sala, avança para uma nova sala
+                // Os únicos pontos onde isto pode acontecer é depois de passar por uma porta, o resta da sala está rodeada por
+                // Walls, que são intransponíveis
+                Dungeon.changeRoom(this.getPosition());
+                return;
             } else if (isDoorClosed(novaPosicao) && isDoorLocked(novaPosicao)) {
                 if (hasKey(novaPosicao)) {
                     unlockDoor(novaPosicao);
-                    System.out.println("Porta foi destrancada");
+                    Engine.mensagensStatus += "Porta foi destrancada. | ";
                 } else {
                     Engine.mensagensStatus += "Ouch! É para puxar em vez de empurrar? Não! Esta porta está trancada! Tenta procurar a chave certa. | ";
                     return;
@@ -128,6 +124,8 @@ public class Hero extends MovingObject {
                 pickUpItem();
             } else if (isSavePoint()) {
                 SaveGame.saveGame();
+            } else if (isTrap()) {
+                activateTrap();
             }
 
         } else if (isEnemy(novaPosicao)) {
@@ -135,9 +133,39 @@ public class Hero extends MovingObject {
             Engine.mensagensStatus += "Ataque!! | ";
             attackEnemy(novaPosicao);
         } else {
-            Engine.mensagensStatus += "Ouch! Esta parede é sólida. | ";
+            Engine.mensagensStatus += "Não podes ir por aí. | ";
         }
 
+    }
+
+    private boolean isTrap() {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(this.getPosition()) && tile instanceof Trap) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void activateTrap() {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(this.getPosition()) && tile instanceof Trap) {
+                if (((Trap) tile).isSafe()) {
+                    ImageMatrixGUI.getInstance().removeImage(tile);
+                    tiles.remove(tile);
+                    return;
+                } else {
+                    this.setCurrentHP(this.getCurrentHP() - ((Trap) tile).getDamage());
+                    this.setPoints(this.getPoints() - 3);
+                    Engine.mensagensStatus += "Ouch! Cuidado, este chão está zangado! - 3 pontos |";
+                    ImageMatrixGUI.getInstance().removeImage(tile);
+                    tiles.remove(tile);
+                    return;
+                }
+            }
+        }
     }
 
     private boolean isStairs(Position position) {
@@ -246,9 +274,15 @@ public class Hero extends MovingObject {
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(this.getPosition()) && tile instanceof Consumable) {
                 // Restora HP do hero
-                this.setCurrentHP(this.getCurrentHP() + ((Consumable) tile).getRestoreHP());
-                System.out.println("Restored HP");
-                Engine.mensagensStatus += "Sentes um fluxo de vitalidade a correr pelas tuas veias: + " + ((Consumable) tile).getRestoreHP() + " HP | ";
+                if (tile instanceof GoodMeat) {
+                    this.setCurrentHP(this.getCurrentHP() + ((Consumable) tile).getRestoreHP());
+                    Engine.mensagensStatus += "Sentes um fluxo de vitalidade a correr pelas tuas veias: + " + ((Consumable) tile).getRestoreHP() + " HP | ";
+                } else if (tile instanceof Potion) {
+                    // A Potion restora completamente o HP do hero
+                    this.setCurrentHP(this.getMaxHP());
+                    Engine.mensagensStatus += "Sentes um fluxo de vitalidade a correr pelas tuas veias: HP restaurado completamente | ";
+                }
+
                 // Adiciona os expPoints do item que apanhou
                 this.setPoints(this.getPoints() + ((Consumable) tile).getExpPoints());
                 Engine.mensagensStatus += "Item consumido: + " + ((Consumable) tile).getExpPoints() + " pontos | ";
@@ -299,9 +333,12 @@ public class Hero extends MovingObject {
             }
 
             if (tile.getPosition().equals(this.getPosition()) && tile instanceof Weapon) {
+                // TODO mais armas
                 if (tile instanceof Hammer) {
                     weapon = new Hammer(tile.getPosition());
-                } // TODO mais armas
+                } else if (tile instanceof Sword) {
+                    weapon = new Sword(tile.getPosition());
+                }
                 weapon.setExpPoints(((Weapon) tile).getExpPoints());
                 weapon.setBonusATK(((Weapon) tile).getBonusATK());
                 if (StatusBar.hasItemSpace()) {
@@ -460,7 +497,6 @@ public class Hero extends MovingObject {
     public boolean isTraversable(MovingObject movingObject) {
         return false;
     }
-
 
 
     public static List<Position> getHeroRange() {

@@ -1,4 +1,4 @@
-package pt.upskill.projeto1.objects.stationary;
+package pt.upskill.projeto1.objects.passages;
 
 import pt.upskill.projeto1.objects.GameObject;
 import pt.upskill.projeto1.objects.MovingObject;

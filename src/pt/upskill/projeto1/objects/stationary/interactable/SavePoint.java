@@ -1,21 +1,25 @@
-package pt.upskill.projeto1.objects.stationary;
+package pt.upskill.projeto1.objects.stationary.interactable;
 
 import pt.upskill.projeto1.objects.GameObject;
+import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
 
-public class TrapTriggered extends GameObject {
-    public TrapTriggered(Position position) {
+public class SavePoint extends GameObject {
+    public SavePoint(Position position) {
         super(position);
     }
 
     @Override
     protected boolean isTraversable(MovingObject movingObject) {
-        return true;
+        if (movingObject instanceof Hero) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public String getName() {
-        return "TrapTriggered";
+        return "SavePoint";
     }
 }

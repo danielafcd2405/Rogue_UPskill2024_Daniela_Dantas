@@ -94,7 +94,7 @@ public class Engine {
         mensagensStatus = "";
 
         if (hero.getCurrentHP() <= 0) {
-            if (attemptCounter < 3) {
+            if (attemptCounter < 2) {
                 SaveGame.loadLastSave();
                 attemptCounter++;
             } else {

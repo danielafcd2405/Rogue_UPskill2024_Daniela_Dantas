@@ -7,7 +7,9 @@ import pt.upskill.projeto1.objects.enemies.BadGuy;
 import pt.upskill.projeto1.objects.enemies.Bat;
 import pt.upskill.projeto1.objects.enemies.Skeleton;
 import pt.upskill.projeto1.objects.enemies.Thief;
+import pt.upskill.projeto1.objects.passages.*;
 import pt.upskill.projeto1.objects.stationary.*;
+import pt.upskill.projeto1.objects.stationary.interactable.*;
 import pt.upskill.projeto1.rogue.utils.Position;
 
 import java.io.File;
@@ -118,6 +120,7 @@ public class Dungeon {
 
         List<ImageTile> tiles = buildRoom(linhasDeSala, keyName);
         addRoomConnections(tiles, linhasDefinicaoPortas);
+        addEnemies(tiles, linhasDeSala);
 
         return tiles;
     }
@@ -177,18 +180,6 @@ public class Dungeon {
                     case "O":
                         tiles.add(new Bookshelves(new Position(i, j)));
                         break;
-                    case "S":
-                        tiles.add(new Skeleton(new Position(i, j)));
-                        break;
-                    case "B":
-                        tiles.add(new Bat(new Position(i, j)));
-                        break;
-                    case "G":
-                        tiles.add(new BadGuy(new Position(i, j)));
-                        break;
-                    case "T":
-                        tiles.add(new Thief(new Position(i, j)));
-                        break;
                     case "P":
                         tiles.add(new SavePoint(new Position(i, j)));
                         break;
@@ -208,6 +199,34 @@ public class Dungeon {
                     case "1":
                     case "2":
                         tiles.add(new DoorWay(new Position(i, j), Integer.parseInt(painel)));
+                }
+            }
+        }
+
+        return tiles;
+    }
+
+    private static List<ImageTile> addEnemies(List<ImageTile> tiles, List<String> linhasDeSala) {
+        for (int j = 0; j < 10; j++) {
+            // y = j => j percorre as linhas
+            String[] paineis = linhasDeSala.get(j).split("");
+            for (int i = 0; i < 10; i++) {
+                // x = i -> i percorre as colunas
+                String painel = paineis[i];
+
+                switch (painel) {
+                    case "S":
+                        tiles.add(new Skeleton(new Position(i, j)));
+                        break;
+                    case "B":
+                        tiles.add(new Bat(new Position(i, j)));
+                        break;
+                    case "G":
+                        tiles.add(new BadGuy(new Position(i, j)));
+                        break;
+                    case "T":
+                        tiles.add(new Thief(new Position(i, j)));
+                        break;
                 }
             }
         }

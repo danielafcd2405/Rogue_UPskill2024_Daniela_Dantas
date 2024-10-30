@@ -1,6 +1,5 @@
 package pt.upskill.projeto1.gui;
 
-import javafx.geometry.Pos;
 import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.Fire;
@@ -8,7 +7,7 @@ import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.items.Item;
 import pt.upskill.projeto1.objects.items.Key;
 import pt.upskill.projeto1.objects.items.Weapon;
-import pt.upskill.projeto1.objects.stationary.DoorWay;
+import pt.upskill.projeto1.objects.passages.DoorWay;
 import pt.upskill.projeto1.objects.status.Black;
 import pt.upskill.projeto1.objects.status.Green;
 import pt.upskill.projeto1.objects.status.Red;
