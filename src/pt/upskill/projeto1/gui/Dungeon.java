@@ -1,5 +1,6 @@
 package pt.upskill.projeto1.gui;
 
+import pt.upskill.projeto1.game.AttemptCounter;
 import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.objects.items.*;
 import pt.upskill.projeto1.objects.Hero;
@@ -322,9 +323,35 @@ public class Dungeon {
             hero.setPosition(newHeroPosition);
         }
 
-        newTiles.add(hero);
+        // Para não duplicar o hero
+        if (!hasInstanceOfHero(nextRoom)) {
+            newTiles.add(hero);
+        }
         gui.newImages(newTiles);
 
+        AttemptCounter.attemptIndicator(Engine.attemptCounter);
+
+        System.out.println();
+        System.out.println("DUNGEON MAP:");
+        for (ImageTile tile : Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom())) {
+            System.out.println(tile.getName());
+        }
+        System.out.println();
+        System.out.println("SAVED DUNGEON MAP:");
+        for (ImageTile savedTile : Dungeon.getSavedDungeonMap().get(Dungeon.getCurrentRoom())) {
+            System.out.println(savedTile.getName());
+        }
+        System.out.println();
+
+    }
+
+    private static boolean hasInstanceOfHero(String room) {
+        for (ImageTile tile : Dungeon.getDungeonMap().get(room)) {
+            if (tile instanceof Hero) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

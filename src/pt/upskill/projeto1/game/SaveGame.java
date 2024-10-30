@@ -27,7 +27,8 @@ public class SaveGame {
         Engine.hero.setPoints(Engine.savedHero.getPoints());
 
         // Novo dungeonMap
-        Map<String, List<ImageTile>> dungeonMap = Dungeon.getSavedDungeonMap();
+        //Map<String, List<ImageTile>> dungeonMap = new HashMap<>(Dungeon.getSavedDungeonMap());
+        Map<String, List<ImageTile>> dungeonMap = loadSavedDungeonMap();
         Dungeon.setDungeonMap(dungeonMap);
         List<ImageTile> tiles = dungeonMap.get(Dungeon.getSavedCurrentRoom());
         Dungeon.setCurrentRoom(Dungeon.getSavedCurrentRoom());
@@ -40,7 +41,62 @@ public class SaveGame {
         gui.newStatusImages(statusTiles);
 
         gui.setStatus("");
+
     }
+
+    private static Map<String, List<ImageTile>> loadSavedDungeonMap() {
+        Map<String, List<ImageTile>> newDungeonMap = new HashMap<>();
+
+        File[] files = null;
+        try {
+            File f = new File("rooms");
+            // Listar todos os nomes dos ficheiros na pasta rooms
+            files = f.listFiles();
+        }
+        catch (Exception e) {
+            System.out.println("Erro ao ler ficheiros");
+        }
+
+        for (File file : files) {
+            List<ImageTile> newSavedRoom = new ArrayList<>(loadSavedRoom(file.getName()));
+            newDungeonMap.put(file.getName(), newSavedRoom);
+        }
+
+        return newDungeonMap;
+    }
+
+    private static List<ImageTile> loadSavedRoom(String roomName) {
+        // Tive que copiar desta forma, para ter novos objetos de inimigos no dungeonMap novo, sem afetar
+        // os objetos guardados no savedDungeonMap
+        List<ImageTile> room = Dungeon.getSavedDungeonMap().get(roomName);
+        List<ImageTile> savedRoom = new ArrayList<>();
+        for (ImageTile tile : room) {
+            if (tile instanceof Enemy) {
+                if (tile instanceof Skeleton) {
+                    Skeleton skeleton = new Skeleton(tile.getPosition());
+                    skeleton.setCurrentHP(((Skeleton) tile).getCurrentHP());
+                    savedRoom.add(skeleton);
+                } else if (tile instanceof Bat) {
+                    Bat bat = new Bat(tile.getPosition());
+                    bat.setCurrentHP(((Bat) tile).getCurrentHP());
+                    savedRoom.add(bat);
+                } else if (tile instanceof BadGuy) {
+                    BadGuy badGuy = new BadGuy(tile.getPosition());
+                    badGuy.setCurrentHP(((BadGuy) tile).getCurrentHP());
+                    savedRoom.add(badGuy);
+                } else if (tile instanceof Thief) {
+                    Thief thief = new Thief(tile.getPosition());
+                    thief.setCurrentHP(((Thief) tile).getCurrentHP());
+                    savedRoom.add(thief);
+                }
+                // TODO mais inimigos
+            } else {
+                savedRoom.add(tile);
+            }
+        }
+        return savedRoom;
+    }
+
 
     public static void saveGame() {
         saveHero();
@@ -51,10 +107,6 @@ public class SaveGame {
     }
 
     private static void saveDungeonMap() {
-        //Map<String, List<ImageTile>> savedDungeonMap = new HashMap<>(Dungeon.getDungeonMap());
-        //Dungeon.setSavedDungeonMap(savedDungeonMap);
-        //Dungeon.setSavedCurrentRoom(Dungeon.getCurrentRoom());
-
         Map<String, List<ImageTile>> savedDungeonMap = new HashMap<>();
 
         File[] files = null;
@@ -74,7 +126,6 @@ public class SaveGame {
 
         Dungeon.setSavedDungeonMap(savedDungeonMap);
         Dungeon.setSavedCurrentRoom(Dungeon.getCurrentRoom());
-
     }
 
     private static List<ImageTile> saveRoom(String roomName) {

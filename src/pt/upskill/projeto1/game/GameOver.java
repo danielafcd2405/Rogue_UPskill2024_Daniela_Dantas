@@ -64,13 +64,23 @@ public class GameOver {
 
         Engine.attemptCounter = 0;
 
+        SaveGame.saveGame();
+
+        System.out.println();
+        System.out.println("DUNGEON MAP:");
+        for (ImageTile tile : Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom())) {
+            System.out.println(tile.getName());
+        }
+        System.out.println();
+        System.out.println("SAVED DUNGEON MAP:");
+        for (ImageTile savedTile : Dungeon.getSavedDungeonMap().get(Dungeon.getCurrentRoom())) {
+            System.out.println(savedTile.getName());
+        }
+        System.out.println();
+
         gui.setStatus("O jogo começou!");
 
         Story.mensagemInicial();
-
-    }
-
-    private static void getLeaderBoard() {
 
     }
 
@@ -87,29 +97,6 @@ public class GameOver {
         }
 
         return scores;
-    }
-
-    private static int[] orderGameScores(List<Integer> scores) {
-        // Adicionar as pontuações da lista para um array
-        int[] scoresArray = new int[scores.size()];
-        for (int i = 0; i < scoresArray.length; i++) {
-            scoresArray[i] = scores.get(i);
-        }
-        // Ordenar, por ordem decrescente, as pontuações
-        int aux;
-
-        for (int n = 0; n < scoresArray.length; n++) {
-            for (int i = 0; i < scoresArray.length - 1; i++) {
-                if (scoresArray[i] < scoresArray[i + 1]) {
-                    aux = scoresArray[i];
-                    scoresArray[i] = scoresArray[i + 1];
-                    scoresArray[i + 1] = aux;
-                }
-            }
-        }
-
-
-        return scoresArray;
     }
 
 

@@ -24,9 +24,10 @@ public class Engine {
         Map<String, List<ImageTile>> dungeonMap = Dungeon.getDungeonMap();
         List<ImageTile> tiles = dungeonMap.get("room0.txt");
         Dungeon.setCurrentRoom("room0.txt");
-        tiles.add(hero);
 
         gui.setEngine(this);
+
+        tiles.add(hero);
         gui.newImages(tiles);
 
         List<ImageTile> statusBarTiles = StatusBar.getStatusBarTiles();
@@ -34,11 +35,27 @@ public class Engine {
 
         SaveGame.saveGame();
 
+        System.out.println();
+        System.out.println("DUNGEON MAP:");
+        for (ImageTile tile : Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom())) {
+            System.out.println(tile.getName());
+        }
+        System.out.println();
+        System.out.println("SAVED DUNGEON MAP:");
+        for (ImageTile savedTile : Dungeon.getSavedDungeonMap().get(Dungeon.getCurrentRoom())) {
+            System.out.println(savedTile.getName());
+        }
+        System.out.println();
+
+        AttemptCounter.attemptIndicator(attemptCounter);
+
         gui.go();
 
         gui.setStatus("O jogo começou!");
 
         Story.mensagemInicial();
+
+        System.out.println("Nº tentativas: " + attemptCounter);
 
         while (true){
             gui.update();
@@ -99,6 +116,21 @@ public class Engine {
             if (attemptCounter < 2) {
                 SaveGame.loadLastSave();
                 attemptCounter++;
+                AttemptCounter.attemptIndicator(attemptCounter);
+
+                System.out.println();
+                System.out.println("DUNGEON MAP:");
+                for (ImageTile tile : Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom())) {
+                    System.out.println(tile.getName());
+                }
+                System.out.println();
+                System.out.println("SAVED DUNGEON MAP:");
+                for (ImageTile savedTile : Dungeon.getSavedDungeonMap().get(Dungeon.getCurrentRoom())) {
+                    System.out.println(savedTile.getName());
+                }
+                System.out.println();
+
+                System.out.println("Nº tentativas: " + attemptCounter);
             } else {
                 GameOver.gameOver("");
             }
