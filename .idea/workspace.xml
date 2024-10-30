@@ -5,24 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f409e310-38d4-47a1-8bba-48a3a2b42e6f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/Story.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/Thief.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/Engine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/Hero.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Thief.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/GameOver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/game/GameOver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/StatusBar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/gui/StatusBar.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/enemies/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/enemies/Enemy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/room1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/room2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/room3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/room5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/room6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/room7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room7.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/room8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/room8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/enemies/Thief.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Rogue_UPskill2024_v1_Daniela_Dantas/pt/upskill/projeto1/objects/enemies/Thief.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scores/game_scores.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scores/game_scores.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/Engine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/GameOver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/game/GameOver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/Hero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/StatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/gui/StatusBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/enemies/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/enemies/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/passages/SecretPassage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/passages/SecretPassage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/enemies/Thief.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/upskill/projeto1/objects/enemies/Thief.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,13 +62,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/danta/Documents/UpSkill/Projeto 1 Rogue/Rogue_UPskill2023_v1_Nome_Completo/rooms"
+    "last_opened_file_path": "C:/Users/danta/Documents/UpSkill/Projeto 1 Rogue/Rogue_UPskill2023_v1_Nome_Completo/images"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\danta\Documents\UpSkill\Projeto 1 Rogue\Rogue_UPskill2023_v1_Nome_Completo\rooms" />
       <recent name="C:\Users\danta\Documents\UpSkill\Projeto 1 Rogue\Rogue_UPskill2023_v1_Nome_Completo\images" />
+      <recent name="C:\Users\danta\Documents\UpSkill\Projeto 1 Rogue\Rogue_UPskill2023_v1_Nome_Completo\rooms" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\danta\Documents\UpSkill\Projeto 1 Rogue\Rogue_UPskill2023_v1_Nome_Completo\images" />

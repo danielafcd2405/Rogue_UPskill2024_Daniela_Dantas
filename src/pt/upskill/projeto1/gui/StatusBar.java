@@ -263,7 +263,7 @@ public class StatusBar {
         }
     }
 
-    private static boolean isEmptySlot(Position position) {
+    public static boolean isEmptySlot(Position position) {
         // Verifica se a posição dada contém algum item
         for (ImageTile tile : statusBarTiles) {
             if (tile.getPosition().equals(position) && tile instanceof Item) {

@@ -179,7 +179,7 @@ public abstract class Enemy extends MovingObject {
     }
 
 
-    private void attackHero(Position position) {
+    protected void attackHero(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
