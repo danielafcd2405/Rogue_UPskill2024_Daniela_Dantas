@@ -4,12 +4,12 @@
 # 2 E room2.txt 0
 #
 WWWW1WWWWW
-W        0
+WS       0
 W        W
-WuuWWWWttW
-WuuW  WttW
-WuuW  WttW
-WuuW  WttW
+WutWWWWttW
+WuuWS WttW
+WtuW  WttW
+WtuW  WttW
 W        W
 W        W
 WWWW2WWWWW

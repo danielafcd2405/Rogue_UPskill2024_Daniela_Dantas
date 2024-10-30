@@ -1,5 +1,6 @@
 package pt.upskill.projeto1.objects;
 
+import pt.upskill.projeto1.game.GameOver;
 import pt.upskill.projeto1.game.SaveGame;
 import pt.upskill.projeto1.gui.*;
 import pt.upskill.projeto1.game.Engine;
@@ -8,6 +9,7 @@ import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.*;
 import pt.upskill.projeto1.objects.passages.*;
 import pt.upskill.projeto1.objects.stationary.*;
+import pt.upskill.projeto1.objects.stationary.interactable.Pedestal;
 import pt.upskill.projeto1.objects.stationary.interactable.SavePoint;
 import pt.upskill.projeto1.objects.stationary.interactable.Trap;
 import pt.upskill.projeto1.rogue.utils.Direction;
@@ -113,13 +115,6 @@ public class Hero extends MovingObject {
                     Engine.mensagensStatus += "Ouch! É para puxar em vez de empurrar? Não! Esta porta está trancada! Tenta procurar a chave certa. | ";
                     return;
                 }
-            } else if (isSecretPassage(novaPosicao)) {
-                if (hasHammer()) {
-                    breakWall(novaPosicao);
-                } else {
-                    Engine.mensagensStatus += "Esta parede parece frágil. Se tivesses alguma coisa que desse para a partir... | ";
-                    return;
-                }
             }
             this.setPosition(novaPosicao);
             this.setPoints(this.getPoints() - 1); // cada movimento remove 1 ponto
@@ -139,10 +134,29 @@ public class Hero extends MovingObject {
             System.out.println("Hero atacou");
             Engine.mensagensStatus += "Ataque!! | ";
             attackEnemy(novaPosicao);
+        } else if (isSecretPassage(novaPosicao)) {
+            if (hasHammer()) {
+                breakWall(novaPosicao);
+            } else {
+                Engine.mensagensStatus += "Esta parede parece frágil. Se tivesses alguma coisa que desse para a partir... | ";
+            }
+        } else if (isPedestal(novaPosicao)) {
+            this.setPoints(this.getPoints() + 100);
+            GameOver.gameOver(Story.mensagemFinal());
         } else {
             Engine.mensagensStatus += "Não podes ir por aí. | ";
         }
 
+    }
+
+    private boolean isPedestal(Position position) {
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        for (ImageTile tile : tiles) {
+            if (tile instanceof Pedestal) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isSecretPassage(Position position) {
@@ -515,6 +529,8 @@ public class Hero extends MovingObject {
                 System.out.println("Inimigo recebeu dano. currentHP: " + ((Enemy) tile).getCurrentHP());
                 // Se o HP ficar a 0, o inimigo é removido da sala e o hero recebe os pontos correspondentes
                 if (((Enemy) tile).getCurrentHP() <= 0) {
+                    // Enemy drops
+                    ((Enemy) tile).dropEnemyItem();
                     this.setPoints(this.getPoints() + ((Enemy) tile).getExpPoints());
                     // Tenho que remover do dungeonMap e dos tiles que estão na gui
                     // Se remover só do dungeonMap, o inimigo fica visível após ser removido

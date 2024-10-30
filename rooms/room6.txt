@@ -6,10 +6,10 @@
 WW0WWWW2WW
 W    W   W
 W    WT  W
-W  WWWWW W
+W  WWW   W
 W  W     W
-W  W   W W
 W      W W
+WT     W W
 W  WWWWW W
-WT W     W
+Wm W     W
 WWWWW1WWWW

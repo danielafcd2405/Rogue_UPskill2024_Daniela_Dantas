@@ -38,6 +38,8 @@ public class Engine {
 
         gui.setStatus("O jogo começou!");
 
+        Story.mensagemInicial();
+
         while (true){
             gui.update();
         }
@@ -98,7 +100,7 @@ public class Engine {
                 SaveGame.loadLastSave();
                 attemptCounter++;
             } else {
-                GameOver.gameOver();
+                GameOver.gameOver("");
             }
         }
 

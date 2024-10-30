@@ -11,7 +11,7 @@ import java.util.*;
 
 public class GameOver {
 
-    public static void gameOver() {
+    public static void gameOver(String string) {
         // guardar e mostrar a pontuação do jogo
         Hero hero = Engine.hero;
         int finalScore = hero.getPoints();
@@ -25,7 +25,7 @@ public class GameOver {
             leaderBoard += scores.get(i) + "\n";
         }
 
-        ImageMatrixGUI.getInstance().showMessage("GameOver", "Pontuação final: \n" + finalScore +
+        ImageMatrixGUI.getInstance().showMessage("GameOver", string + "Pontuação final: \n" + finalScore +
                 leaderBoard);
 
         restartGame();

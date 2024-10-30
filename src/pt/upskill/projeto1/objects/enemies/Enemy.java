@@ -6,6 +6,8 @@ import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.gui.Dungeon;
 import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.MovingObject;
+import pt.upskill.projeto1.objects.items.GoodMeat;
+import pt.upskill.projeto1.objects.items.Potion;
 import pt.upskill.projeto1.rogue.utils.Position;
 import pt.upskill.projeto1.rogue.utils.Vector2D;
 
@@ -25,9 +27,20 @@ public abstract class Enemy extends MovingObject {
             new Vector2D(0, 1),
             new Vector2D(0, -1)
     };
+    private ImageTile[] drops = new ImageTile[10];
 
     public Enemy(Position position) {
         super(position);
+    }
+
+    public ImageTile[] getDrops() {
+        return drops;
+    }
+
+    public void setDrops() {
+        this.drops[0] = new GoodMeat(this.getPosition());
+        this.drops[1] = new GoodMeat(this.getPosition());
+        this.drops[2] = new Potion(this.getPosition());
     }
 
     public int getMaxHP() {
@@ -52,6 +65,19 @@ public abstract class Enemy extends MovingObject {
 
     public Vector2D[] getMovimentosPossiveis() {
         return movimentosPossiveis;
+    }
+
+    public void dropEnemyItem() {
+        this.setDrops();
+        // gera um índice aleatoriamente
+        Random random = new Random();
+        int randomIndex = random.nextInt(this.getDrops().length);
+        ImageTile drop = this.getDrops()[randomIndex];
+        if (drop != null) {
+            // Adicionar o item ao mapa
+            Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom()).add(drop);
+            ImageMatrixGUI.getInstance().addImage(drop);
+        }
     }
 
     private List<Position> posicoesPossiveis() {
