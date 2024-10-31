@@ -2,11 +2,9 @@ package pt.upskill.projeto1.gui;
 
 import pt.upskill.projeto1.game.Engine;
 import pt.upskill.projeto1.objects.enemies.Enemy;
-import pt.upskill.projeto1.objects.items.Fire;
+import pt.upskill.projeto1.objects.items.*;
 import pt.upskill.projeto1.objects.Hero;
-import pt.upskill.projeto1.objects.items.Item;
-import pt.upskill.projeto1.objects.items.Key;
-import pt.upskill.projeto1.objects.items.Weapon;
+import pt.upskill.projeto1.objects.passages.DoorClosed;
 import pt.upskill.projeto1.objects.passages.DoorWay;
 import pt.upskill.projeto1.objects.status.Black;
 import pt.upskill.projeto1.objects.status.Green;
@@ -118,6 +116,37 @@ public class StatusBar {
 
     }
 
+    public static boolean hasHammer() {
+        List<ImageTile> statusTiles = StatusBar.getStatusBarTiles();
+        for (ImageTile tile : statusTiles) {
+            if (tile instanceof Hammer) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasKey(Position position) {
+        // Vai buscar o nome da chave à porta
+        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
+        String keyName = "";
+        for (ImageTile tile : tiles) {
+            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
+                keyName = ((DoorClosed) tile).getKey();
+            }
+        }
+
+        // Vai buscar as chaves presentes no inventário e verifica se alguma tem o nome certo
+        List<ImageTile> statusBarTiles = StatusBar.getStatusBarTiles();
+        for (ImageTile statusTile : statusBarTiles) {
+            if (statusTile instanceof Key && ((Key) statusTile).getKeyName().equals(keyName)) {
+                System.out.println("Chave: " + ((Key) statusTile).getKeyName());
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static boolean hasItemSpace() {
         if (isEmptySlot(new Position(7, 0)) || isEmptySlot(new Position(8, 0)) || isEmptySlot(new Position(9, 0))) {
@@ -201,7 +230,8 @@ public class StatusBar {
         // Larga o item num tile vazio (apenas Floor) em redor do hero
         // O item volta a aparecer no mapa, para evitar situações em que uma chave é eliminada sem querer
         // O jogador pode voltar atrás para recolher os itens que largou
-        List<Position> heroRange = Hero.getHeroRange(); // Posições sem mais nenhum item
+        List<Position> heroRange = Hero.getHeroRange();
+        // Posições sem mais nenhum item
         List<Position> posicoesLivres = new ArrayList<>();
         for (Position p : heroRange) {
             if (isEmptyFloor(p)) {

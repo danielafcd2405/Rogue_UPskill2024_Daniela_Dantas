@@ -19,11 +19,36 @@ import java.util.*;
 
 public class Dungeon {
 
-    // Guarda todas as salas de acordo com o nome do ficheiro de configuração da sala correspondente
+    private static final List<String> roomNames = setRoomNames();
     private static Map<String, List<ImageTile>> dungeonMap = buildDungeon();
     private static String currentRoom;
     private static Map<String, List<ImageTile>> savedDungeonMap;
     private static String savedCurrentRoom;
+
+    public static List<String> getRoomNames() {
+        return roomNames;
+    }
+
+    public static List<String> setRoomNames() {
+        File[] files = null;
+        try {
+            File f = new File("rooms");
+            // Listar todos os nomes dos ficheiros na pasta rooms
+            files = f.listFiles();
+        }
+        catch (Exception e) {
+            System.out.println("Erro ao ler ficheiros");
+        }
+
+        List<String> roomNames = new ArrayList<>();
+        if (files != null) {
+            for (File file : files) {
+                roomNames.add(file.getName());
+            }
+        }
+
+        return roomNames;
+    }
 
     public static Map<String, List<ImageTile>> getDungeonMap() {
         return dungeonMap;
@@ -61,29 +86,11 @@ public class Dungeon {
     // no mapa dungeonMap
     public static Map<String, List<ImageTile>> buildDungeon() {
         Map<String, List<ImageTile>> dungeonMap = new HashMap<>();
-
-        File[] files = null;
-        try {
-            File f = new File("rooms");
-            // Listar todos os nomes dos ficheiros na pasta rooms
-            files = f.listFiles();
+        for (String string : roomNames) {
+            dungeonMap.put(string, readRoomMap(string));
         }
-        catch (Exception e) {
-            System.out.println("Erro ao ler ficheiros");
-        }
-
-        System.out.println(files.length);
-
-        for (File file : files) {
-            System.out.println(file.getName());
-            dungeonMap.put(file.getName(), readRoomMap(file.getName()));
-        }
-
         return dungeonMap;
-
     }
-
-
 
     public static List<ImageTile> readRoomMap(String room) {
 
@@ -110,7 +117,6 @@ public class Dungeon {
         } catch (FileNotFoundException e) {
             System.out.println("Ficheiro não encontrado.");;
         }
-
 
         // Nome da chave; Apenas deve existir uma única chave por sala
         String keyName = "";
@@ -207,7 +213,7 @@ public class Dungeon {
         return tiles;
     }
 
-    private static List<ImageTile> addEnemies(List<ImageTile> tiles, List<String> linhasDeSala) {
+    private static void addEnemies(List<ImageTile> tiles, List<String> linhasDeSala) {
         for (int j = 0; j < 10; j++) {
             // y = j => j percorre as linhas
             String[] paineis = linhasDeSala.get(j).split("");
@@ -231,18 +237,15 @@ public class Dungeon {
                 }
             }
         }
-
-        return tiles;
     }
 
 
     private static void addRoomConnections(List<ImageTile> tiles, List<String> definicoes) {
-
-        // Extrair os tiles do tipo DoorWay e guardar num HashMap
-        java.util.Map<Integer, DoorWay> doorsMap = new HashMap<>();
+        // Lista das portas (DoorWay) que existem na sala
+        List<ImageTile> portas = new ArrayList<>();
         for (ImageTile tile : tiles) {
             if (tile instanceof DoorWay) {
-                doorsMap.put(((DoorWay) tile).getDoorNumber(), (DoorWay) tile);
+                portas.add(tile);
             }
         }
 
@@ -260,7 +263,13 @@ public class Dungeon {
                 key = definicaoDePorta[5];
             }
 
-            Position posicao = doorsMap.get(doorNumber).getPosition();
+            Position posicao = null;
+            // Vai buscar a posição da DoorWay com o doorNumber correspondente
+            for (ImageTile porta : portas) {
+                if (((DoorWay)porta).getDoorNumber() == doorNumber) {
+                    posicao = porta.getPosition();
+                }
+            }
 
             switch (doorType) {
                 case "D":
@@ -310,7 +319,7 @@ public class Dungeon {
         List<ImageTile> newTiles = dungeonMap.get(nextRoom);
         setCurrentRoom(nextRoom);
 
-        // Vai buscar a posição da porta por onde o hero entrou
+        // Vai buscar a posição da porta por onde o hero tem de entrar
         Position newHeroPosition = null;
         for (ImageTile tile : newTiles) {
             if (tile instanceof DoorWay && ((DoorWay) tile).getDoorNumber() == nextDoor) {
@@ -323,26 +332,14 @@ public class Dungeon {
             hero.setPosition(newHeroPosition);
         }
 
-        // Para não duplicar o hero
+        // Para não duplicar o hero quando faz o save do mapa
         if (!hasInstanceOfHero(nextRoom)) {
             newTiles.add(hero);
         }
         gui.newImages(newTiles);
 
+        // Adiciona o tile que mostra o nº de vidas do hero
         AttemptCounter.attemptIndicator(Engine.attemptCounter);
-
-        System.out.println();
-        System.out.println("DUNGEON MAP:");
-        for (ImageTile tile : Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom())) {
-            System.out.println(tile.getName());
-        }
-        System.out.println();
-        System.out.println("SAVED DUNGEON MAP:");
-        for (ImageTile savedTile : Dungeon.getSavedDungeonMap().get(Dungeon.getCurrentRoom())) {
-            System.out.println(savedTile.getName());
-        }
-        System.out.println();
-
     }
 
     private static boolean hasInstanceOfHero(String room) {

@@ -1,6 +1,7 @@
 package pt.upskill.projeto1.objects.enemies;
 
 import pt.upskill.projeto1.game.Engine;
+import pt.upskill.projeto1.game.Tiles;
 import pt.upskill.projeto1.gui.ImageMatrixGUI;
 import pt.upskill.projeto1.gui.ImageTile;
 import pt.upskill.projeto1.gui.Dungeon;
@@ -68,6 +69,7 @@ public abstract class Enemy extends MovingObject {
     }
 
     public void dropEnemyItem() {
+        // o setDrops() é apenas chamado neste momento, para que a posição do item seja a do enemy neste instante
         this.setDrops();
         // gera um índice aleatoriamente
         Random random = new Random();
@@ -84,7 +86,7 @@ public abstract class Enemy extends MovingObject {
         List<Position> posicoesPossiveis = new ArrayList<>();
         for (Vector2D vector2D : getMovimentosPossiveis()) {
             Position position = this.getPosition().plus(vector2D);
-            if (canMove(position) || isHero(position)) {
+            if (canMove(position) || Tiles.isHero(position)) {
                 posicoesPossiveis.add(position);
             }
         }
@@ -92,13 +94,11 @@ public abstract class Enemy extends MovingObject {
     }
 
     public void moveEnemy() {
-
         if (isCloseToHero()) {
             movimentoConvergente();
         } else {
             movimentoAleatorio(posicoesPossiveis());
         }
-
     }
 
     private void movimentoAleatorio(List<Position> posicoesPossiveis) {
@@ -134,7 +134,7 @@ public abstract class Enemy extends MovingObject {
         if (! posicoesConvergentes.isEmpty()) {
 
             for (Position p : posicoesConvergentes) {
-                if (isHero(p)) {
+                if (Tiles.isHero(p)) {
                     // Se o hero estiver num tile adjacente ao inimigo, o inimigo ataca
                     // Faz return para não se mover a seguir, porque um ataque conta como uma jogada do inimigo
                     attackHero(p);
@@ -160,19 +160,6 @@ public abstract class Enemy extends MovingObject {
                 if (enemyPosition.equals(heroPosition)) {
                     return true;
                 }
-            }
-        }
-        return false;
-    }
-
-
-
-    private boolean isHero(Position position) {
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-
-        for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(position) && tile instanceof Hero) {
-                return true;
             }
         }
         return false;

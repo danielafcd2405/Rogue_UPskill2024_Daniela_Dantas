@@ -5,7 +5,7 @@ import pt.upskill.projeto1.objects.Hero;
 import pt.upskill.projeto1.objects.MovingObject;
 import pt.upskill.projeto1.rogue.utils.Position;
 
-public abstract class Item extends GameObject implements ItemInteraction {
+public abstract class Item extends GameObject implements Interactable {
 
     protected int expPoints;
 

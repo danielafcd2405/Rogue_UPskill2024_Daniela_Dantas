@@ -1,10 +1,7 @@
 package pt.upskill.projeto1.objects;
 
-import pt.upskill.projeto1.game.GameOver;
-import pt.upskill.projeto1.game.SaveGame;
+import pt.upskill.projeto1.game.*;
 import pt.upskill.projeto1.gui.*;
-import pt.upskill.projeto1.game.Engine;
-import pt.upskill.projeto1.game.FireBallThread;
 import pt.upskill.projeto1.objects.enemies.Enemy;
 import pt.upskill.projeto1.objects.items.*;
 import pt.upskill.projeto1.objects.passages.*;
@@ -48,7 +45,6 @@ public class Hero extends MovingObject {
         if (this.points < 0) {
             this.points = 0;
         }
-        System.out.println("Points: " + getPoints() + " (" + points + ") | ");
     }
 
     public int getAtk() {
@@ -86,9 +82,9 @@ public class Hero extends MovingObject {
         super.setPosition(position);
         // Abre uma porta (destrancada) para a porta ficar aberta depois de passar por ela
         // É útil deixar uma porta aberta depois de passar por ela, para ajudar o jogador a navegar no mapa e saber por onde já passou
-        if (isDoorClosed(this.getPosition())) {
+        if (Tiles.isDoorClosed(this.getPosition())) {
             openTheDoor(this.getPosition());
-        } else if (isSecretPassage(this.getPosition()) && hasHammer()) {
+        } else if (Tiles.isSecretPassage(this.getPosition()) && StatusBar.hasHammer()) {
             // Para 'partir' a parede do outro lado, depois de mudar de sala
             breakWall(this.getPosition());
         }
@@ -98,7 +94,7 @@ public class Hero extends MovingObject {
         Position novaPosicao = this.getPosition().plus(vector2D);
 
         if (canMove(novaPosicao)) {
-            if (isStairs(novaPosicao)) {
+            if (Tiles.isStairs(novaPosicao)) {
                 Dungeon.changeRoom(novaPosicao);
                 return;
             } else if (novaPosicao.getX() < 0 || novaPosicao.getX() > 9 || novaPosicao.getY() < 0 || novaPosicao.getY() > 9) {
@@ -107,8 +103,8 @@ public class Hero extends MovingObject {
                 // Walls, que são intransponíveis
                 Dungeon.changeRoom(this.getPosition());
                 return;
-            } else if (isDoorClosed(novaPosicao) && isDoorLocked(novaPosicao)) {
-                if (hasKey(novaPosicao)) {
+            } else if (Tiles.isDoorClosed(novaPosicao) && Tiles.isDoorLocked(novaPosicao)) {
+                if (StatusBar.hasKey(novaPosicao)) {
                     unlockDoor(novaPosicao);
                     Engine.mensagensStatus += "Porta foi destrancada. | ";
                 } else {
@@ -124,59 +120,29 @@ public class Hero extends MovingObject {
                 consumeItem();
             } else if (canPickUp()) {
                 pickUpItem();
-            } else if (isSavePoint()) {
+            } else if (Tiles.isSavePoint(this.getPosition())) {
                 SaveGame.saveGame();
-            } else if (isTrap()) {
+            } else if (Tiles.isTrap(this.getPosition())) {
                 activateTrap();
             }
 
-        } else if (isEnemy(novaPosicao)) {
+        } else if (Tiles.isEnemy(novaPosicao)) {
             System.out.println("Hero atacou");
             Engine.mensagensStatus += "Ataque!! | ";
             attackEnemy(novaPosicao);
-        } else if (isSecretPassage(novaPosicao)) {
-            if (hasHammer()) {
+        } else if (Tiles.isSecretPassage(novaPosicao)) {
+            if (StatusBar.hasHammer()) {
                 breakWall(novaPosicao);
             } else {
                 Engine.mensagensStatus += "Esta parede parece frágil. Se tivesses alguma coisa que desse para a partir... | ";
             }
-        } else if (isPedestal(novaPosicao)) {
+        } else if (Tiles.isPedestal(novaPosicao)) {
             this.setPoints(this.getPoints() + 100);
-            GameOver.gameOver(Story.mensagemFinal());
+            GameOver.gameOver(Story.mensagemFinalWin());
         } else {
             Engine.mensagensStatus += "Não podes ir por aí. | ";
         }
 
-    }
-
-    private boolean isPedestal(Position position) {
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        for (ImageTile tile : tiles) {
-            if (tile instanceof Pedestal) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isSecretPassage(Position position) {
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(position) && tile instanceof SecretPassage) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean hasHammer() {
-        List<ImageTile> statusTiles = StatusBar.getStatusBarTiles();
-        for (ImageTile tile : statusTiles) {
-            if (tile instanceof Hammer) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void breakWall(Position position) {
@@ -188,16 +154,6 @@ public class Hero extends MovingObject {
                 return;
             }
         }
-    }
-
-    private boolean isTrap() {
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(this.getPosition()) && tile instanceof Trap) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void activateTrap() {
@@ -220,59 +176,6 @@ public class Hero extends MovingObject {
         }
     }
 
-    private boolean isStairs(Position position) {
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(position) && (tile instanceof StairsDown || tile instanceof StairsUp)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isSavePoint() {
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(this.getPosition()) && tile instanceof SavePoint) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isDoorLocked(Position position) {
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
-                if (((DoorClosed) tile).isLocked()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean hasKey(Position position) {
-        // Vai buscar o nome da chave à porta
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        String keyName = "";
-        for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(position) && tile instanceof DoorClosed) {
-                keyName = ((DoorClosed) tile).getKey();
-            }
-        }
-
-        // Vai buscar as chaves presentes no inventário e verifica se alguma tem o nome certo
-        List<ImageTile> statusBarTiles = StatusBar.getStatusBarTiles();
-        for (ImageTile statusTile : statusBarTiles) {
-            if (statusTile instanceof Key && ((Key) statusTile).getKeyName().equals(keyName)) {
-                System.out.println("Chave: " + ((Key) statusTile).getKeyName());
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void unlockDoor(Position position) {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
         // Muda o atributo isLocked para false
@@ -285,18 +188,6 @@ public class Hero extends MovingObject {
             }
         }
     }
-
-
-    private boolean isDoorClosed(Position position) {
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
-        for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(position) && (tile instanceof DoorClosed)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     private void openTheDoor(Position position) {
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
@@ -333,7 +224,7 @@ public class Hero extends MovingObject {
                     // A Potion restora completamente o HP do hero
                     this.setCurrentHP(this.getMaxHP());
                     Engine.mensagensStatus += "Sentes um fluxo de vitalidade a correr pelas tuas veias: HP restaurado completamente | ";
-                }
+                } //TODO outros itens
 
                 // Adiciona os expPoints do item que apanhou
                 this.setPoints(this.getPoints() + ((Consumable) tile).getExpPoints());
@@ -385,7 +276,7 @@ public class Hero extends MovingObject {
             }
 
             if (tile.getPosition().equals(this.getPosition()) && tile instanceof Weapon) {
-                // TODO mais armas
+                // TODO outras armas
                 if (tile instanceof Hammer) {
                     weapon = new Hammer(tile.getPosition());
                 } else if (tile instanceof Sword) {
@@ -400,7 +291,6 @@ public class Hero extends MovingObject {
 
                     this.setPoints(this.getPoints() + weapon.getExpPoints());
                     this.setAtk(this.getAtk() + weapon.getBonusATK());
-                    System.out.println("Hero ATK: " + this.getAtk());
                     Engine.mensagensStatus += "Isto deve ser melhor do que usar os punhos vazios. " +
                             weapon.getBonusATK() + " ATK bonus + " + weapon.getExpPoints() + " pontos | ";
                 } else {
@@ -416,8 +306,6 @@ public class Hero extends MovingObject {
                     Engine.mensagensStatus += "Agora tens o poder do fogo do teu lado! + " + ((Fire) tile).getExpPoints() + " pontos |";
                     tiles.remove(tile);
                     gui.removeImage(tile);
-                } else {
-                    Engine.mensagensStatus += "Não tens mais espaço. Larga um dos itens que tens contigo. ";
                 }
                 return;
             }
@@ -458,7 +346,7 @@ public class Hero extends MovingObject {
                 return false;
             }
         }
-        if (isEnemy(position)) {
+        if (Tiles.isEnemy(position)) {
             return true;
         } else {
             return checkUp(position.plus(Direction.UP.asVector()));
@@ -472,7 +360,7 @@ public class Hero extends MovingObject {
                 return false;
             }
         }
-        if (isEnemy(position)) {
+        if (Tiles.isEnemy(position)) {
             return true;
         } else {
             return checkDown(position.plus(Direction.DOWN.asVector()));
@@ -486,7 +374,7 @@ public class Hero extends MovingObject {
                 return false;
             }
         }
-        if (isEnemy(position)) {
+        if (Tiles.isEnemy(position)) {
             return true;
         } else {
             return checkLeft(position.plus(Direction.LEFT.asVector()));
@@ -500,7 +388,7 @@ public class Hero extends MovingObject {
                 return false;
             }
         }
-        if (isEnemy(position)) {
+        if (Tiles.isEnemy(position)) {
             return true;
         } else {
             return checkRight(position.plus(Direction.RIGHT.asVector()));
@@ -508,16 +396,7 @@ public class Hero extends MovingObject {
     }
 
 
-    private boolean isEnemy(Position position) {
-        List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
 
-        for (ImageTile tile : tiles) {
-            if (tile.getPosition().equals(position) && tile instanceof Enemy) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void attackEnemy(Position position) {
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
@@ -526,7 +405,6 @@ public class Hero extends MovingObject {
         for (ImageTile tile : tiles) {
             if (tile.getPosition().equals(position) && tile instanceof Enemy) {
                 ((Enemy) tile).setCurrentHP(((Enemy) tile).getCurrentHP() - this.getAtk());
-                System.out.println("Inimigo recebeu dano. currentHP: " + ((Enemy) tile).getCurrentHP());
                 // Se o HP ficar a 0, o inimigo é removido da sala e o hero recebe os pontos correspondentes
                 if (((Enemy) tile).getCurrentHP() <= 0) {
                     // Enemy drops
@@ -538,7 +416,6 @@ public class Hero extends MovingObject {
                     // Removendo da gui também, ele dasaparece logo após ser derrotado
                     gui.removeImage(tile);
                     tiles.remove(tile);
-                    System.out.println("Inimigo derrotado");
                     Engine.mensagensStatus += "Inimigo derrotado! + " + ((Enemy) tile).getExpPoints() + " pontos | ";
                     return;
                 }

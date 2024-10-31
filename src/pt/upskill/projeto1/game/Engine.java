@@ -35,18 +35,7 @@ public class Engine {
 
         SaveGame.saveGame();
 
-        System.out.println();
-        System.out.println("DUNGEON MAP:");
-        for (ImageTile tile : Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom())) {
-            System.out.println(tile.getName());
-        }
-        System.out.println();
-        System.out.println("SAVED DUNGEON MAP:");
-        for (ImageTile savedTile : Dungeon.getSavedDungeonMap().get(Dungeon.getCurrentRoom())) {
-            System.out.println(savedTile.getName());
-        }
-        System.out.println();
-
+        // Adiciona o tile com os corações que indicam as vidas do hero
         AttemptCounter.attemptIndicator(attemptCounter);
 
         gui.go();
@@ -54,8 +43,6 @@ public class Engine {
         gui.setStatus("O jogo começou!");
 
         Story.mensagemInicial();
-
-        System.out.println("Nº tentativas: " + attemptCounter);
 
         while (true){
             gui.update();
@@ -83,12 +70,10 @@ public class Engine {
             Actions.movement(vector2D);
         }
 
-
         // Lançar bolas de fogo
         if (keyPressed == KeyEvent.VK_SPACE) {
             Actions.lauchFireBall();
         }
-
 
         // Remover itens da StatusBar
         Position statusBarPosition = null;
@@ -106,7 +91,6 @@ public class Engine {
             Actions.removeItems(statusBarPosition);
         }
 
-
         // Mostrar as mensagens de Status
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         gui.setStatus(mensagensStatus);
@@ -116,23 +100,10 @@ public class Engine {
             if (attemptCounter < 2) {
                 SaveGame.loadLastSave();
                 attemptCounter++;
+                // Atualiza o tile com os corações que indicam o nº de vidas do hero
                 AttemptCounter.attemptIndicator(attemptCounter);
-
-                System.out.println();
-                System.out.println("DUNGEON MAP:");
-                for (ImageTile tile : Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom())) {
-                    System.out.println(tile.getName());
-                }
-                System.out.println();
-                System.out.println("SAVED DUNGEON MAP:");
-                for (ImageTile savedTile : Dungeon.getSavedDungeonMap().get(Dungeon.getCurrentRoom())) {
-                    System.out.println(savedTile.getName());
-                }
-                System.out.println();
-
-                System.out.println("Nº tentativas: " + attemptCounter);
             } else {
-                GameOver.gameOver("");
+                GameOver.gameOver(Story.mensagemFinalLose());
             }
         }
 

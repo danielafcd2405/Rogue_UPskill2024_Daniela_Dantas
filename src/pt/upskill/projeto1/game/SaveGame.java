@@ -20,14 +20,13 @@ public class SaveGame {
         gui.clearImages();
         gui.clearStatus();
 
-        // Novo hero
+        // Alterar os atributos do hero
         Engine.hero.setPosition(Engine.savedHero.getPosition());
         Engine.hero.setAtk(Engine.savedHero.getAtk());
         Engine.hero.setCurrentHP(Engine.savedHero.getCurrentHP());
         Engine.hero.setPoints(Engine.savedHero.getPoints());
 
         // Novo dungeonMap
-        //Map<String, List<ImageTile>> dungeonMap = new HashMap<>(Dungeon.getSavedDungeonMap());
         Map<String, List<ImageTile>> dungeonMap = loadSavedDungeonMap();
         Dungeon.setDungeonMap(dungeonMap);
         List<ImageTile> tiles = dungeonMap.get(Dungeon.getSavedCurrentRoom());
@@ -46,28 +45,17 @@ public class SaveGame {
 
     private static Map<String, List<ImageTile>> loadSavedDungeonMap() {
         Map<String, List<ImageTile>> newDungeonMap = new HashMap<>();
-
-        File[] files = null;
-        try {
-            File f = new File("rooms");
-            // Listar todos os nomes dos ficheiros na pasta rooms
-            files = f.listFiles();
+        for (String string : Dungeon.getRoomNames()) {
+            List<ImageTile> newSavedRoom = new ArrayList<>(loadSavedRoom(string));
+            newDungeonMap.put(string, newSavedRoom);
         }
-        catch (Exception e) {
-            System.out.println("Erro ao ler ficheiros");
-        }
-
-        for (File file : files) {
-            List<ImageTile> newSavedRoom = new ArrayList<>(loadSavedRoom(file.getName()));
-            newDungeonMap.put(file.getName(), newSavedRoom);
-        }
-
         return newDungeonMap;
     }
 
     private static List<ImageTile> loadSavedRoom(String roomName) {
         // Tive que copiar desta forma, para ter novos objetos de inimigos no dungeonMap novo, sem afetar
         // os objetos guardados no savedDungeonMap
+        // Se não fizer assim, as posições dos inimigos são alteradas
         List<ImageTile> room = Dungeon.getSavedDungeonMap().get(roomName);
         List<ImageTile> savedRoom = new ArrayList<>();
         for (ImageTile tile : room) {
@@ -89,7 +77,7 @@ public class SaveGame {
                     thief.setCurrentHP(((Thief) tile).getCurrentHP());
                     savedRoom.add(thief);
                 }
-                // TODO mais inimigos
+                // TODO outros inimigos
             } else {
                 savedRoom.add(tile);
             }
@@ -102,28 +90,16 @@ public class SaveGame {
         saveHero();
         saveDungeonMap();
         saveStatusBar();
-
-        System.out.println("Game was saved");
+        System.out.println("O jogo foi guardado");
+        Engine.mensagensStatus += "O jogo foi guardado. | ";
     }
 
     private static void saveDungeonMap() {
         Map<String, List<ImageTile>> savedDungeonMap = new HashMap<>();
-
-        File[] files = null;
-        try {
-            File f = new File("rooms");
-            // Listar todos os nomes dos ficheiros na pasta rooms
-            files = f.listFiles();
+        for (String string : Dungeon.getRoomNames()) {
+            List<ImageTile> savedRoom = new ArrayList<>(saveRoom(string));
+            savedDungeonMap.put(string, savedRoom);
         }
-        catch (Exception e) {
-            System.out.println("Erro ao ler ficheiros");
-        }
-
-        for (File file : files) {
-            List<ImageTile> savedRoom = new ArrayList<>(saveRoom(file.getName()));
-            savedDungeonMap.put(file.getName(), savedRoom);
-        }
-
         Dungeon.setSavedDungeonMap(savedDungeonMap);
         Dungeon.setSavedCurrentRoom(Dungeon.getCurrentRoom());
     }
@@ -152,7 +128,7 @@ public class SaveGame {
                     thief.setCurrentHP(((Thief) tile).getCurrentHP());
                     savedRoom.add(thief);
                 }
-                // TODO mais inimigos
+                // TODO outros inimigos
             } else {
                 savedRoom.add(tile);
             }

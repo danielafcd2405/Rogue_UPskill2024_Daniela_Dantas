@@ -66,18 +66,6 @@ public class GameOver {
 
         SaveGame.saveGame();
 
-        System.out.println();
-        System.out.println("DUNGEON MAP:");
-        for (ImageTile tile : Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom())) {
-            System.out.println(tile.getName());
-        }
-        System.out.println();
-        System.out.println("SAVED DUNGEON MAP:");
-        for (ImageTile savedTile : Dungeon.getSavedDungeonMap().get(Dungeon.getCurrentRoom())) {
-            System.out.println(savedTile.getName());
-        }
-        System.out.println();
-
         gui.setStatus("O jogo começou!");
 
         Story.mensagemInicial();

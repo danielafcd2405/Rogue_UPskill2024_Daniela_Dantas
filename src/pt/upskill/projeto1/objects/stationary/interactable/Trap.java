@@ -6,7 +6,7 @@ import pt.upskill.projeto1.rogue.utils.Position;
 
 public class Trap extends GameObject {
 
-    private boolean isSafe;
+    private final boolean isSafe;
     private final int damage = 5;
 
     public Trap(Position position, boolean isSafe) {

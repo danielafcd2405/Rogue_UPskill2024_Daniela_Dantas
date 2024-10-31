@@ -33,7 +33,6 @@ public class Actions {
 
     public static void removeItems(Position position) {
         StatusBar.removeItemFromStatusBar(position);
-
         // O hero é guardado, removido e volta a ser adicionado, para o hero ficar por cima do item que foi largado no mapa
         ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
         List<ImageTile> tiles = Dungeon.getDungeonMap().get(Dungeon.getCurrentRoom());
